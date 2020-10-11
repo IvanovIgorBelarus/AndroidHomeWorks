@@ -24,7 +24,6 @@ public class RandomSetNumbers implements IRandomSetNumbers {
             for (Integer a : arrayList) {
                 sum += a;
             }
-            Log.d("HM2","sum= "+sum);
             return sum;
         }
         return null;
@@ -33,7 +32,6 @@ public class RandomSetNumbers implements IRandomSetNumbers {
     @Override
     public Double average(ArrayList<Integer> arrayList) {
         if (sum(arrayList) != null) {
-            Log.d("HM2","average= "+(double) sum(arrayList) / arrayList.size());
             return (double) sum(arrayList) / arrayList.size();
         }
         return null;
@@ -51,7 +49,6 @@ public class RandomSetNumbers implements IRandomSetNumbers {
                     div -= arrayList.get(i);
                 }
             }
-            Log.d("HM2","halfDiv= "+(div == 0 ? null : (double) sum / div));
             return div == 0 ? null : (double) sum / div;
         }
         return null;

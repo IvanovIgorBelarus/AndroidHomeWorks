@@ -9,6 +9,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     public static final String CREATEARRAY = "1";
     public static final String SUM = "2";
@@ -17,15 +19,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("HM2", "Create MainActivity");
+        Log.d("HM2", "Create MainActivity!!!!");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
+
+        findViewById(R.id.startSecondActivity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra(CREATEARRAY, RandomSetNumbers.createArray(10));
-                startActivityForResult(intent, 1000);
+                intent.putExtra(CREATEARRAY,RandomSetNumbers.createArray(20) );
+                startActivityForResult(intent,1000);
             }
         });
     }
