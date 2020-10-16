@@ -26,6 +26,7 @@ public class Publisher implements IObserved{
         if (!subscribers.contains(observer)){
             subscribers.add(observer);
         }
+        notifySubscribers();
     }
 
     @Override

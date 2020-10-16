@@ -18,8 +18,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.startSecondActivity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Publisher.getInstance().addSubscriber(SecondActivity.subscriber);
-                Publisher.setData(RandomSetNumbers.createArray(100));
+                Publisher.getInstance().setData(RandomSetNumbers.createArray(100));
                 startActivity(new Intent(MainActivity.this,SecondActivity.class));
             }
         });
