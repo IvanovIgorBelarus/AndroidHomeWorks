@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
         android:background="@color/colorTurquoise">
         <TextView
             android:layout_width="match_parent"
@@ -16,115 +14,85 @@
             android:background="@color/colorTurquoise"
             android:layout_marginStart="16dp"
             android:textSize="36sp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_folder_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Attractions"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_restaurant_menu_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Dining"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_school_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Education"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_group_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Family"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_favorite_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Health"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_domain_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Office"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_local_grocery_store_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Promotions"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_radio_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Radio"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_class_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Recipes"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    </TableRow>
+    <TableRow>
         <ImageView
             style="@style/Image"
             android:background="@drawable/ic_directions_bike_grey600_48dp"/>
         <TextView
             style="@style/TextView"
             android:text="@string/Sports"/>
-    </LinearLayout>
-</LinearLayout>
+    </TableRow>
+</TableLayout>
