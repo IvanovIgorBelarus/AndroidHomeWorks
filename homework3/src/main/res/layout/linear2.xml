@@ -7,11 +7,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="10">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="match_parent"
             android:background="@color/colorGrey"
             android:gravity="center"
             android:text="@string/Photo"
@@ -23,10 +24,11 @@
             android:layout_height="48dp"
             android:layout_gravity="right|bottom"
             android:background="@drawable/ic_camera_alt_white_48dp"
-            tools:ignore="RtlHardcoded" />
+            />
     </FrameLayout>
 
     <TextView
+        android:layout_weight="2"
         style="@style/Hyperlink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +36,7 @@
         android:hint="@string/Title" />
 
     <LinearLayout
+        android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -56,13 +59,14 @@
     </LinearLayout>
 
     <TextView
+        android:layout_weight="1"
         style="@style/Hyperlink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="24dp"
         android:hint="@string/Description" />
 
     <LinearLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -73,7 +77,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/Inventory" />
+            android:hint="@string/Inventory"
+            tools:ignore="NestedWeights" />
 
         <TextView
             android:layout_width="match_parent"
@@ -88,4 +93,9 @@
             android:layout_weight="1"
             android:hint="@string/Weight" />
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:enabled="false" />
 </LinearLayout>
