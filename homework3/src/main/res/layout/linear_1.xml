@@ -26,7 +26,7 @@
             android:background="@drawable/ic_folder_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Attractions"/>
+            android:text="@string/attractions"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:background="@drawable/ic_restaurant_menu_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Dining"/>
+            android:text="@string/dining"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             android:background="@drawable/ic_school_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Education"/>
+            android:text="@string/education"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:background="@drawable/ic_group_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Family"/>
+            android:text="@string/family"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:background="@drawable/ic_favorite_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Health"/>
+            android:text="@string/health"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -81,7 +81,7 @@
             android:background="@drawable/ic_domain_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Office"/>
+            android:text="@string/office"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -92,7 +92,7 @@
             android:background="@drawable/ic_local_grocery_store_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Promotions"/>
+            android:text="@string/promotions"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -103,7 +103,7 @@
             android:background="@drawable/ic_radio_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Radio"/>
+            android:text="@string/radio"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -114,7 +114,7 @@
             android:background="@drawable/ic_class_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Recipes"/>
+            android:text="@string/recipes"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -125,6 +125,6 @@
             android:background="@drawable/ic_directions_bike_grey600_48dp"/>
         <TextView
             style="@style/TextView"
-            android:text="@string/Sports"/>
+            android:text="@string/sports"/>
     </LinearLayout>
 </LinearLayout>

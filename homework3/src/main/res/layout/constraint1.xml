@@ -11,7 +11,7 @@
         android:layout_height="250dp"
         android:background="@color/colorGrey"
         android:gravity="center"
-        android:text="@string/Photo"
+        android:text="@string/photo"
         android:textColor="@color/colorBlack"
         android:textSize="56sp" />
     <ImageView
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="24dp"
-        android:hint="@string/Title" />
+        android:hint="@string/title" />
     <TextView
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:paddingEnd="@android:dimen/app_icon_size"
         android:paddingTop="48dp"
-        android:hint="@string/Price"
+        android:hint="@string/price"
         tools:ignore="RtlSymmetry" />
     <TextView
         android:id="@+id/location"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_room_grey600_48dp"
         android:paddingTop="48dp"
-        android:hint="@string/Location" />
+        android:hint="@string/location" />
     <TextView
         android:id="@+id/description"
         app:layout_constraintTop_toBottomOf="@id/location"
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="48dp"
-        android:hint="@string/Description" />
+        android:hint="@string/description" />
     <TextView
         android:id="@+id/inventory"
         android:paddingTop="24dp"
@@ -68,7 +68,7 @@
         style="@style/Hyperlink"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/Inventory" />
+        android:hint="@string/inventory" />
 
     <TextView
         android:id="@+id/enable"
@@ -89,6 +89,6 @@
         style="@style/Hyperlink"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/Weight" />
+        android:hint="@string/weight" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

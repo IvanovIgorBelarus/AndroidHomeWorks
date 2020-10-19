@@ -10,7 +10,7 @@
         android:layout_height="250dp"
         android:background="@color/colorGrey"
         android:gravity="center"
-        android:text="@string/Photo"
+        android:text="@string/photo"
         android:textColor="@color/colorBlack"
         android:textSize="56sp" />
 
@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/PHOTO"
-        android:hint="@string/Title"
+        android:hint="@string/title"
         android:paddingTop="24dp" />
 
     <TextView
@@ -36,9 +36,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:hint="@string/Price"
+        android:hint="@string/price"
         android:paddingTop="48dp"
-        android:paddingEnd="@android:dimen/app_icon_size" />
+        android:paddingEnd="@android:dimen/app_icon_size"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/location"
@@ -49,7 +50,7 @@
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/price"
         android:drawableEnd="@drawable/ic_room_grey600_48dp"
-        android:hint="@string/Location"
+        android:hint="@string/location"
         android:paddingTop="48dp" />
 
     <TextView
@@ -58,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/location"
-        android:hint="@string/Description"
+        android:hint="@string/description"
         android:paddingTop="48dp" />
 
     <TextView
@@ -67,9 +68,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/description"
-        android:hint="@string/Inventory"
-        android:paddingEnd="25dp"
+        android:hint="@string/inventory"
         android:paddingTop="24dp"
+        android:paddingEnd="25dp"
         tools:ignore="RtlSymmetry" />
 
     <TextView
@@ -79,8 +80,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/description"
         android:layout_alignParentEnd="true"
-        android:paddingEnd="50dp"
-        android:hint="@string/Weight"
+        android:hint="@string/weight"
         android:paddingTop="24dp"
+        android:paddingEnd="50dp"
         tools:ignore="RtlSymmetry" />
 </RelativeLayout>
