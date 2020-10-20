@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
-public class RandomSetNumbers implements IRandomSetNumbers{
+public class RandomSetNumbers implements IRandomSetNumbers {
     public static ArrayList<Integer> createArray(int n) {
         HashSet<Integer> hashSet = new HashSet<>();
         for (int i = 1; i <= n; i++) {
             hashSet.add(new Random().nextInt(100));
         }
         ArrayList<Integer> result = new ArrayList<>(hashSet);
-        Log.d("HM2","Create ArrayList: "+result);
+        Log.d("HM2", "Create ArrayList: " + result);
         return result;
     }
 

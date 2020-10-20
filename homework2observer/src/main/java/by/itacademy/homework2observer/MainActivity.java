@@ -1,13 +1,13 @@
 package by.itacademy.homework2observer;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity implements IObserver {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Publisher.getInstance().setData(RandomSetNumbers.createArray(100));
-                startActivity(new Intent(MainActivity.this,SecondActivity.class));
+                Publisher.getInstance().addSubscriber(MainActivity.this);
+                startActivity(new Intent(MainActivity.this, SecondActivity.class));
             }
         });
     }
@@ -28,8 +29,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d("HM2", "MainActivity onResume");
         super.onResume();
-        if (Subscriber.getResult()!=null){
-            Log.d("HM2",""+Subscriber.getResult());
+        if (Publisher.getResult() != null) {
+            Log.d("HM2", "" + Publisher.getResult());
         }
+    }
+
+    @Override
+    public void notifyDataChanged() {
+        Log.d("HM2", "MainActivity notifyDataChanged used");
     }
 }
