@@ -23,22 +23,21 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="right|bottom"
-            android:background="@drawable/ic_camera_alt_white_48dp"
-            />
+            android:background="@drawable/ic_camera_alt_white_48dp" />
     </FrameLayout>
 
     <TextView
-        android:layout_weight="2"
         style="@style/Hyperlink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:paddingTop="24dp"
-        android:hint="@string/title" />
+        android:layout_weight="2"
+        android:hint="@string/title"
+        android:paddingTop="24dp" />
 
     <LinearLayout
-        android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:orientation="horizontal"
         android:paddingTop="48dp">
 
@@ -59,16 +58,16 @@
     </LinearLayout>
 
     <TextView
-        android:layout_weight="1"
         style="@style/Hyperlink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:hint="@string/description" />
 
     <LinearLayout
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:paddingTop="24dp">
 
@@ -93,6 +92,7 @@
             android:layout_weight="1"
             android:hint="@string/weight" />
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

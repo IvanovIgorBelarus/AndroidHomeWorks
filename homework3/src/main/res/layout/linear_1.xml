@@ -1,130 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:background="@color/colorTurquoise">
+        android:background="@color/colorTurquoise"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@color/colorTurquoise"
             android:text="@string/poi"
             android:textColor="@color/colorWhite"
-            android:background="@color/colorTurquoise"
-            android:layout_marginStart="16dp"
-            android:textSize="36sp"/>
+            android:textSize="36sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_folder_grey600_48dp"/>
+            android:background="@drawable/ic_folder_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/attractions"/>
+            android:text="@string/attractions" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_restaurant_menu_grey600_48dp"/>
+            android:background="@drawable/ic_restaurant_menu_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/dining"/>
+            android:text="@string/dining" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_school_grey600_48dp"/>
+            android:background="@drawable/ic_school_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/education"/>
+            android:text="@string/education" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_group_grey600_48dp"/>
+            android:background="@drawable/ic_group_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/family"/>
+            android:text="@string/family" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_favorite_grey600_48dp"/>
+            android:background="@drawable/ic_favorite_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/health"/>
+            android:text="@string/health" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_domain_grey600_48dp"/>
+            android:background="@drawable/ic_domain_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/office"/>
+            android:text="@string/office" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_local_grocery_store_grey600_48dp"/>
+            android:background="@drawable/ic_local_grocery_store_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/promotions"/>
+            android:text="@string/promotions" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_radio_grey600_48dp"/>
+            android:background="@drawable/ic_radio_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/radio"/>
+            android:text="@string/radio" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_class_grey600_48dp"/>
+            android:background="@drawable/ic_class_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/recipes"/>
+            android:text="@string/recipes" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ImageView
             style="@style/Image"
-            android:background="@drawable/ic_directions_bike_grey600_48dp"/>
+            android:background="@drawable/ic_directions_bike_grey600_48dp" />
+
         <TextView
             style="@style/TextView"
-            android:text="@string/sports"/>
+            android:text="@string/sports" />
     </LinearLayout>
 </LinearLayout>

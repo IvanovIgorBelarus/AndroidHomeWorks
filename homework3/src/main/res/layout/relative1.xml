@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -38,8 +37,7 @@
         android:layout_below="@id/title"
         android:hint="@string/price"
         android:paddingTop="48dp"
-        android:paddingEnd="@android:dimen/app_icon_size"
-        tools:ignore="RtlSymmetry" />
+        android:paddingEnd="@android:dimen/app_icon_size" />
 
     <TextView
         android:id="@+id/location"
@@ -70,8 +68,7 @@
         android:layout_below="@id/description"
         android:hint="@string/inventory"
         android:paddingTop="24dp"
-        android:paddingEnd="25dp"
-        tools:ignore="RtlSymmetry" />
+        android:paddingEnd="25dp" />
 
     <TextView
         android:id="@+id/weight"
@@ -82,6 +79,5 @@
         android:layout_alignParentEnd="true"
         android:hint="@string/weight"
         android:paddingTop="24dp"
-        android:paddingEnd="50dp"
-        tools:ignore="RtlSymmetry" />
+        android:paddingEnd="50dp" />
 </RelativeLayout>
