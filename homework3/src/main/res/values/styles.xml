@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="Image" parent="Widget.AppCompat.ImageButton">
         <item name="android:layout_width">36dp</item>
         <item name="android:layout_height">36dp</item>
@@ -14,6 +15,7 @@
         <item name="android:layout_marginLeft">16dp</item>
         <item name="android:layout_marginRight">16dp</item>
     </style>
+
     <style name="TextView" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">36dp</item>
@@ -22,9 +24,11 @@
         <item name="android:layout_margin">16dp</item>
         <item name="android:textColor">@color/colorGrey</item>
     </style>
+
     <style name="Hyperlink" parent="TextView">
         <item name="android:background">@drawable/hyperlink</item>
     </style>
+
     <style name="MyEditText" parent="Widget.AppCompat.EditText">
         <item name="android:paddingLeft">24dp</item>
         <item name="android:layout_height">76dp</item>
@@ -32,6 +36,43 @@
         <item name="android:layout_marginLeft">24dp</item>
         <item name="android:layout_marginRight">24dp</item>
         <item name="android:layout_marginBottom">16dp</item>
+    </style>
+
+    <style name="MyImage" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">108dp</item>
+        <item name="android:layout_height">108dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:background">@color/colorLightGrey</item>
+    </style>
+
+    <style name="TextView4" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
+
+    <style name="MyImageSmall" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:background">@color/colorLightGrey</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="MyBlueTheme" parent="Theme.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="drawableTint">@color/colorBlue</item>
+        <item name="android:textColor">@color/colorBlue</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginEnd">34dp</item>
+        <item name="android:layout_weight">1</item>
     </style>
 
 </resources>
