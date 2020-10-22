@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class SecondActivity extends AppCompatActivity implements IObserver {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,12 +17,20 @@ public class SecondActivity extends AppCompatActivity implements IObserver {
         finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Publisher.getInstance().removeSubscriber(this);
+        Log.d("HM2", "SecondActivity ONDESTROY");
+    }
 
     @Override
-    public void notifyDataChanged() {
+    public void notifyDataChanged(String data, ArrayList<Integer> arrayList) {
         IRandomSetNumbers operations = new RandomSetNumbers();
-        String result = "We have RESULT:\nsum= " + operations.sum(Publisher.getData()) + "\naverage= " + operations.average(Publisher.getData()) + "\nhalfDiv= " + operations.halfDiv(Publisher.getData());
-        Publisher.setResult(result);
+        Publisher.setResult(String.format("We have RESULT:\nsum= %s\naverage= %s\nhalfDiv= %s",
+                operations.sum(arrayList),
+                operations.average(arrayList),
+                operations.halfDiv(arrayList)));
         Log.d("HM2", "SecondActivity notifyDataChanged used");
     }
 }

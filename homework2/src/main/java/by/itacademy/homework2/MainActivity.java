@@ -9,8 +9,6 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
     public static final String CREATEARRAY = "1";
     public static final String SUM = "2";
@@ -22,13 +20,12 @@ public class MainActivity extends AppCompatActivity {
         Log.d("HM2", "Create MainActivity!!!!");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         findViewById(R.id.startSecondActivity).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra(CREATEARRAY,RandomSetNumbers.createArray(20) );
-                startActivityForResult(intent,1000);
+                intent.putExtra(CREATEARRAY, RandomSetNumbers.createArray(20));
+                startActivityForResult(intent, 1000);
             }
         });
     }
@@ -36,10 +33,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1000 && resultCode == Activity.RESULT_OK && data != null) {
-            Log.d("HM2", "MainActivity Result" +
-                    "\nsum= " + data.getIntExtra(SUM, 0) +
-                    "\naverage= " + data.getDoubleExtra(AVERAGE, 0) +
-                    "\nhalfdiv= " + data.getDoubleExtra(HALFDIV, 0));
+            Log.d("HM2", "MainActivity Result" + String.format(
+                    "\nsum= %s \naverage= %s \nhalfdiv= %s",
+                    data.getIntExtra(SUM, 0),
+                    data.getDoubleExtra(AVERAGE, 0),
+                    data.getDoubleExtra(HALFDIV, 0)));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

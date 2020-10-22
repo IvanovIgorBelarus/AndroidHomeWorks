@@ -15,14 +15,6 @@ public class Publisher implements IObserved {
         return INSTANCE;
     }
 
-    public static ArrayList<Integer> getData() {
-        return data;
-    }
-
-    public static String getResult() {
-        return result;
-    }
-
     public static void setResult(String result) {
         Publisher.result = result;
     }
@@ -36,11 +28,11 @@ public class Publisher implements IObserved {
 
     private final List<IObserver> subscribers = new ArrayList<>();
 
-
     @Override
     public void addSubscriber(IObserver observer) {
         if (!subscribers.contains(observer)) {
             subscribers.add(observer);
+            observer.notifyDataChanged(result, data);
         }
         notifySubscribers();
     }
@@ -53,7 +45,7 @@ public class Publisher implements IObserved {
     @Override
     public void notifySubscribers() {
         for (IObserver observer : subscribers) {
-            observer.notifyDataChanged();
+            observer.notifyDataChanged(result, data);
         }
     }
 }
