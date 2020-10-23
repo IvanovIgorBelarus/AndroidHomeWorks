@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp">
+
+    <TextView
+        android:id="@+id/android_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Android"
+        android:textColor="@color/colorBlack"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/android_text">
+
+        <ImageView style="@style/MyImage" />
+
+        <TextView
+            style="@style/TextView4"
+            android:text="@string/posts" />
+
+        <TextView
+            style="@style/TextView4"
+            android:text="@string/followers" />
+
+        <TextView
+            style="@style/TextView4"
+            android:text="@string/following" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/user_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/username"
+        android:textColor="@color/colorBlack"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear1" />
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_text">
+
+        <ImageView style="@style/MyImageSmall" />
+
+        <ImageView style="@style/MyImageSmall" />
+
+        <ImageView style="@style/MyImageSmall" />
+
+        <ImageView style="@style/MyImageSmall" />
+
+        <ImageView style="@style/MyImageSmall" />
+
+        <ImageView style="@style/MyImageSmall" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="36dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear2">
+
+        <TextView
+            style="@style/MyBlueTheme"
+            android:drawableTop="@drawable/ic_directions_black_36dp"
+            android:text="@string/directions" />
+
+        <TextView
+            style="@style/MyBlueTheme"
+            android:drawableTop="@drawable/ic_local_phone_black_36dp"
+            android:text="@string/call" />
+
+        <TextView
+            style="@style/MyBlueTheme"
+            android:drawableTop="@drawable/ic_grade_black_36dp"
+            android:text="@string/save" />
+
+        <TextView
+            style="@style/MyBlueTheme"
+            android:drawableTop="@drawable/ic_insert_link_black_36dp"
+            android:text="@string/website" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear3">
+
+        <ImageView style="@style/MyImage" />
+
+        <ImageView style="@style/MyImage" />
+
+        <ImageView style="@style/MyImage" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
