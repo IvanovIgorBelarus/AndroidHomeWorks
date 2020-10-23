@@ -75,4 +75,33 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+    <style name="MyTextViewConstr4" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="MyImageConstr4" parent="Theme.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="drawableTint">@color/colorGrey</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="MyTextViewConstr4.1" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:textSize">56sp</item>
+        <item name="android:background">@color/colorLightGrey</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="MyConstraint" parent="Theme.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/layout_border</item>
+    </style>
+
 </resources>

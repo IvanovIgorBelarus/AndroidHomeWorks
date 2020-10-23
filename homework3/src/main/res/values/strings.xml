@@ -33,4 +33,8 @@
     <string name="call">CALL</string>
     <string name="save">SAVE</string>
     <string name="website">WEBSITE</string>
+    <string name="android_course">Android course</string>
+    <string name="certificated">Certificated</string>
+    <string name="layouts">Layouts</string>
+    <string name="Views">Views</string>
 </resources>
