@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MyLinear"
+    tools:context=".CreateItemActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/MyToolBar">
+
+        <Button
+            style="@style/MyButton"
+            android:layout_gravity="center|start"
+            android:drawableStart="@drawable/ic_keyboard_backspace_white_36dp" />
+
+        <TextView
+            style="@style/MyTextView"
+            android:text="@string/add_contact" />
+
+        <Button
+            android:id="@+id/add_button"
+            style="@style/MyButton"
+            android:layout_gravity="center|end"
+            android:drawableEnd="@drawable/ic_done_white_36dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <RadioButton
+        android:id="@+id/add_phone"
+        style="@style/MyRadioButton"
+        android:text="@string/phone_number" />
+
+    <RadioButton
+        android:id="@+id/add_email"
+        style="@style/MyRadioButton"
+        android:text="@string/email" />
+
+    <EditText
+        android:id="@+id/name"
+        style="@style/MyEditText"
+        android:hint="@string/name" />
+
+    <EditText
+        android:id="@+id/numberOrEmail"
+        style="@style/MyEditText"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/phone_number" />
+</LinearLayout>
