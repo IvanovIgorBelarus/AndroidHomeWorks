@@ -1,7 +1,7 @@
 package by.itacademy.homework4_1;
 
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -13,7 +13,6 @@ public class CreateItemActivity extends AppCompatActivity {
     private RadioButton email;
     private EditText name;
     private EditText numberOrEmail;
-    private Button addButton;
     private Toolbar toolbar;
 
     @Override
@@ -25,7 +24,26 @@ public class CreateItemActivity extends AppCompatActivity {
         email = findViewById(R.id.add_email);
         name = findViewById(R.id.name);
         numberOrEmail = findViewById(R.id.numberOrEmail);
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_create);
         setSupportActionBar(toolbar);
+        findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (phoneNumber.isChecked()) {
+                    Publisher.changeList(new Item.Builder()
+                            .setName(name.getText().toString())
+                            .setPhone(numberOrEmail.getText().toString())
+                            .build());
+                }
+                if (email.isChecked()) {
+                    Publisher.changeList(new Item.Builder()
+                            .setName(name.getText().toString())
+                            .setEmail(numberOrEmail.getText().toString())
+                            .build());
+                }
+                Publisher.getInstance().notifySubscribers();
+                finish();
+            }
+        });
     }
 }

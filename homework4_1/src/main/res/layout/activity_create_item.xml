@@ -5,7 +5,7 @@
     tools:context=".CreateItemActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_create"
         style="@style/MyToolBar">
 
         <Button
@@ -27,6 +27,7 @@
     <RadioButton
         android:id="@+id/add_phone"
         style="@style/MyRadioButton"
+        android:checked="true"
         android:text="@string/phone_number" />
 
     <RadioButton
