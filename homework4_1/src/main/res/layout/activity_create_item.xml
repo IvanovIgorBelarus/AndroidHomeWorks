@@ -24,16 +24,21 @@
             android:drawableEnd="@drawable/ic_done_white_36dp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <RadioButton
-        android:id="@+id/add_phone"
-        style="@style/MyRadioButton"
-        android:checked="true"
-        android:text="@string/phone_number" />
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <RadioButton
-        android:id="@+id/add_email"
-        style="@style/MyRadioButton"
-        android:text="@string/email" />
+        <RadioButton
+            android:id="@+id/add_phone"
+            style="@style/MyRadioButton"
+            android:text="@string/phone_number" />
+
+        <RadioButton
+            android:id="@+id/add_email"
+            style="@style/MyRadioButton"
+            android:text="@string/email" />
+    </RadioGroup>
 
     <EditText
         android:id="@+id/name"

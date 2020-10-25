@@ -1,9 +1,9 @@
 package by.itacademy.homework4_1;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,25 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> implements IObserver {
-    private static List<Item> items;
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+    private MainActivity.ListItemActionListener listItemActionListener;
+    private List<Item> items;
 
-    public ItemAdapter(List<Item> items) {
+    public ItemAdapter(List<Item> items, MainActivity.ListItemActionListener listItemActionListener) {
         this.items = items;
+        this.listItemActionListener = listItemActionListener;
     }
 
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater
+        View view = LayoutInflater
                 .from(parent.getContext())
-                .inflate(R.layout.item_recyclerview, parent, false)) {
-        };
+                .inflate(R.layout.item_recyclerview, parent, false);
+        return new ItemViewHolder(view, listItemActionListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.bind(position);
+        holder.bind(items.get(position));
     }
 
     @Override
@@ -40,28 +42,40 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return 0;
     }
 
-    @Override
-    public void notifyChange(List<Item> items) {
-        ItemAdapter.items = items;
-        notifyDataSetChanged();
-        Log.d("HM4", "Adapter update");
-    }
-
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-
         private TextView name;
         private TextView info;
+        private ImageView image;
+        private MainActivity.ListItemActionListener listItemActionListener;
 
-        public ItemViewHolder(@NonNull View itemView) {
+        public ItemViewHolder(@NonNull View itemView, MainActivity.ListItemActionListener listItemActionListener) {
             super(itemView);
+            image = itemView.findViewById(R.id.image_res);
             name = itemView.findViewById(R.id.text_name);
             info = itemView.findViewById(R.id.text_info);
+            this.listItemActionListener = listItemActionListener;
         }
 
-        public void bind(int position) {
-            name.setText(items.get(position).getName());
-            if (items.get(position).getPhone() != null) {
-                info.setText(items.get(position).getPhone());
+        public void bind(Item item) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listItemActionListener != null) {
+                        listItemActionListener.onItemClicked(getAdapterPosition());
+                    }
+
+                }
+            });
+            name.setText(item.getName());
+            if (item.getPhone() != null) {
+                info.setText(item.getPhone());
+                image.setImageResource(R.drawable.ic_contact_phone_white_48dp);
+                image.setColorFilter(image.getResources().getColor(R.color.colorPrimaryDark));
+            }
+            if (item.getEmail() != null) {
+                info.setText(item.getEmail());
+                image.setImageResource(R.drawable.ic_contact_mail_white_48dp);
+                image.setColorFilter(image.getResources().getColor(R.color.colorPink));
             }
         }
     }

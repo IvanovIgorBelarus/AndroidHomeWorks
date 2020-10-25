@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,8 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
-    private final ItemAdapter adapter = new ItemAdapter(Publisher.getItemList());
-
+    private ItemAdapter adapter;
+    interface ListItemActionListener{
+        void onItemClicked(int number);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +23,15 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
+        adapter = new ItemAdapter(Publisher.getInstance().getItemList(), new ListItemActionListener() {
+            @Override
+            public void onItemClicked(int number) {
+                Intent intent = new Intent(MainActivity.this,ChangeItemActivity.class);
+                intent.putExtra("position",number);
+                startActivity(intent);
+            }
+        });
         RecyclerView recycler = findViewById(R.id.recycler);
-        Publisher.getInstance().addSubscriber(adapter);
         recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recycler.setAdapter(adapter);
 
@@ -32,17 +42,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        adapter.notifyDataSetChanged();
-        Log.d("HM4","MainActivity onResume");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Publisher.getInstance().removeSubscriber(adapter);
-    }
-}
+  }

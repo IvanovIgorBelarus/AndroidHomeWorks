@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/MyLinear"
     tools:context=".CreateItemActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        style="@style/MyToolBar">
+        style="@style/MyToolBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        >
 
         <Button
+            android:id="@+id/back"
             style="@style/MyButton"
             android:layout_gravity="center|start"
             android:drawableStart="@drawable/ic_keyboard_backspace_white_36dp" />
@@ -19,10 +24,23 @@
     </androidx.appcompat.widget.Toolbar>
 
     <EditText
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintRight_toRightOf="parent"
         android:id="@+id/name"
         style="@style/MyEditText" />
 
     <EditText
-        android:id="@+id/numberOrEmail"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/info"
         style="@style/MyEditText" />
-</LinearLayout>
+    <Button
+        android:id="@+id/remove"
+        app:layout_constraintTop_toBottomOf="@id/info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
