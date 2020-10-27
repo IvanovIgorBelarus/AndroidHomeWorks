@@ -1,6 +1,7 @@
 package by.itacademy.homework4_1;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -20,30 +21,38 @@ public class CreateItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item);
 
-        phoneNumber = findViewById(R.id.add_phone);
-        email = findViewById(R.id.add_email);
+        phoneNumber = findViewById(R.id.addPhone);
+        email = findViewById(R.id.addEmail);
         name = findViewById(R.id.name);
         numberOrEmail = findViewById(R.id.numberOrEmail);
-        Toolbar toolbar = findViewById(R.id.toolbar_create);
+        Toolbar toolbar = findViewById(R.id.toolbarCreate);
         setSupportActionBar(toolbar);
-        findViewById(R.id.add_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Item item = new Item();
                 if (!phoneNumber.isChecked() && !email.isChecked()) {
-                    Toast.makeText(CreateItemActivity.this, "Choose category", Toast.LENGTH_SHORT).show();
-                }
-                if (!name.getText().toString().equals("")) {
+                    Toast.makeText(CreateItemActivity.this, "Choose category!", Toast.LENGTH_SHORT).show();
+                } else if (!name.getText().toString().equals("")) {
                     item.setName(name.getText().toString());
+                    if (phoneNumber.isChecked() && !numberOrEmail.getText().toString().equals("")) {
+                        item.setPhone(numberOrEmail.getText().toString());
+                        Publisher.getInstance().getItemList().add(item);
+                        finish();
+                    }
+                    if (email.isChecked() && !numberOrEmail.getText().toString().equals("")) {
+                        item.setEmail(numberOrEmail.getText().toString());
+                        Publisher.getInstance().getItemList().add(item);
+                        finish();
+                    }
                 } else {
-                    Toast.makeText(CreateItemActivity.this, "add info", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateItemActivity.this, "Add info!", Toast.LENGTH_SHORT).show();
                 }
-                if (phoneNumber.isChecked()) {
-                    item.setPhone(numberOrEmail.getText().toString());
-                } else if (email.isChecked()) {
-                    item.setEmail(numberOrEmail.getText().toString());
-                }
-                Publisher.getInstance().getItemList().add(item);
+            }
+        });
+        findViewById(R.id.backFromCreate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

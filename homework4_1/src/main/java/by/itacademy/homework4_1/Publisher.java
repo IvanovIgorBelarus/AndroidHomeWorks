@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Publisher implements IObserved {
-    private List<Item> itemList = new ArrayList<>();
+    private final List<Item> itemList = new ArrayList<>();
     private static Publisher INSTANCE;
     private final List<IObserver> subscribers = new ArrayList<>();
 

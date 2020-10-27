@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -40,10 +41,32 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
         Publisher.getInstance().addSubscriber(this);
 
-        findViewById(R.id.add_item).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.addItem).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, CreateItemActivity.class));
+            }
+        });
+        SearchView searchView = findViewById(R.id.searchContact);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.d("HM4", "newText= " + newText);
+                if (newText.equals("")) {
+                    Log.d("HM4", "setOldAdapter");
+                    adapter.setItems(Publisher.getInstance().getItemList());
+                } else {
+                    Log.d("HM4", "setNewAdapter");
+                    adapter.setItems(Filter.filter(newText));
+                    adapter.notifyDataSetChanged();
+                }
+                return true;
             }
         });
     }
@@ -56,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
     @Override
     public void notifyDataChange(int position, int operation) {
+        Log.d("HM4", "notifyDataChange Main ");
         switch (operation) {
             case REMOVE: {
                 adapter.notifyItemRemoved(position);
@@ -67,4 +91,5 @@ public class MainActivity extends AppCompatActivity implements IObserver {
             }
         }
     }
+
 }

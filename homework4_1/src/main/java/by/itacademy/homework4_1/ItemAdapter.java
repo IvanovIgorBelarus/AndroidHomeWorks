@@ -1,5 +1,6 @@
 package by.itacademy.homework4_1;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,11 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
     private MainActivity.ListItemActionListener listItemActionListener;
     private List<Item> items;
+
+    public void setItems(List<Item> items) {
+        Log.d("HM4", String.format(" setItems, size=%s ",items.size()));
+        this.items = items;
+    }
 
     public ItemAdapter(List<Item> items, MainActivity.ListItemActionListener listItemActionListener) {
         this.items = items;
@@ -50,9 +56,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         public ItemViewHolder(@NonNull View itemView, MainActivity.ListItemActionListener listItemActionListener) {
             super(itemView);
-            image = itemView.findViewById(R.id.image_res);
-            name = itemView.findViewById(R.id.text_name);
-            info = itemView.findViewById(R.id.text_info);
+            image = itemView.findViewById(R.id.imageRes);
+            name = itemView.findViewById(R.id.textName);
+            info = itemView.findViewById(R.id.textInfo);
             this.listItemActionListener = listItemActionListener;
         }
 
@@ -63,7 +69,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                     if (listItemActionListener != null) {
                         listItemActionListener.onItemClicked(getAdapterPosition());
                     }
-
                 }
             });
             name.setText(item.getName());
