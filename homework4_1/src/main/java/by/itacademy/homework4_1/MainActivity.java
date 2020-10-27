@@ -4,18 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
-    private ItemAdapter adapter;
-    interface ListItemActionListener{
+import static by.itacademy.homework4_1.Constants.*;
+
+public class MainActivity extends AppCompatActivity implements IObserver {
+    private static ItemAdapter adapter;
+
+    interface ListItemActionListener {
         void onItemClicked(int number);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +29,16 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ItemAdapter(Publisher.getInstance().getItemList(), new ListItemActionListener() {
             @Override
             public void onItemClicked(int number) {
-                Intent intent = new Intent(MainActivity.this,ChangeItemActivity.class);
-                intent.putExtra("position",number);
+                Intent intent = new Intent(MainActivity.this, ChangeItemActivity.class);
+                intent.putExtra("position", number);
                 startActivity(intent);
             }
         });
         RecyclerView recycler = findViewById(R.id.recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         recycler.setAdapter(adapter);
+
+        Publisher.getInstance().addSubscriber(this);
 
         findViewById(R.id.add_item).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,4 +47,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-  }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Publisher.getInstance().removeSubscriber(this);
+    }
+
+    @Override
+    public void notifyDataChange(int position, int operation) {
+        switch (operation) {
+            case REMOVE: {
+                adapter.notifyItemRemoved(position);
+                break;
+            }
+            case CHANGE: {
+                adapter.notifyItemChanged(position);
+                break;
+            }
+        }
+    }
+}
