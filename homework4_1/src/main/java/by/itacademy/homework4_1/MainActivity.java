@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 return true;
             }
 
@@ -66,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
                     adapter.setItems(Filter.filter(newText));
                     adapter.notifyDataSetChanged();
                 }
+
                 return true;
             }
         });
