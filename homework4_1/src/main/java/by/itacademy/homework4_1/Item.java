@@ -28,6 +28,4 @@ public class Item {
     public String getEmail() {
         return email;
     }
-
-
 }

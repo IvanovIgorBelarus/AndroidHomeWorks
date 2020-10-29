@@ -2,7 +2,6 @@ package by.itacademy.homework4_1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 
@@ -56,12 +55,9 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.d("HM4", "newText= " + newText);
                 if (newText.equals("")) {
-                    Log.d("HM4", "setOldAdapter");
                     adapter.setItems(Publisher.getInstance().getItemList());
                 } else {
-                    Log.d("HM4", "setNewAdapter");
                     adapter.setItems(Filter.filter(newText));
                     adapter.notifyDataSetChanged();
                 }
@@ -79,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements IObserver {
 
     @Override
     public void notifyDataChange(int position, int operation) {
-        Log.d("HM4", "notifyDataChange Main ");
         switch (operation) {
             case REMOVE: {
                 adapter.notifyItemRemoved(position);

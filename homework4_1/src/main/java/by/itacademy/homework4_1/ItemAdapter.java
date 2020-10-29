@@ -17,7 +17,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     private List<Item> items;
 
     public void setItems(List<Item> items) {
-        Log.d("HM4", String.format(" setItems, size=%s ", items.size()));
         this.items = items;
     }
 
