@@ -16,9 +16,6 @@ public class Filter {
                 itemsCopy.add(item);
             }
         }
-        if (itemsCopy.size() == 0) {
-            return items;
-        }
         return itemsCopy;
     }
 }
