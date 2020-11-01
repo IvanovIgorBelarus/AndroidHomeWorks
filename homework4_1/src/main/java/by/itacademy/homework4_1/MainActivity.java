@@ -10,10 +10,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static by.itacademy.homework4_1.Constants.*;
+import static by.itacademy.homework4_1.Constants.CHANGE;
+import static by.itacademy.homework4_1.Constants.REMOVE;
 
 public class MainActivity extends AppCompatActivity implements IObserver {
-    private static ItemAdapter adapter;
+    private ItemAdapter adapter;
 
     interface ListItemActionListener {
         void onItemClicked(int number);

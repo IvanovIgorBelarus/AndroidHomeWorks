@@ -7,7 +7,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static by.itacademy.homework4_1.Constants.*;
+import static by.itacademy.homework4_1.Constants.CHANGE;
+import static by.itacademy.homework4_1.Constants.REMOVE;
 
 public class ChangeItemActivity extends AppCompatActivity {
     private EditText name;
@@ -25,12 +26,13 @@ public class ChangeItemActivity extends AppCompatActivity {
         }
         name = findViewById(R.id.name);
         info = findViewById(R.id.info);
-        name.setText(Publisher.getInstance().getItemList().get(position).getName());
-        String phoneOrEmail = Publisher.getInstance().getItemList().get(position).getPhone();
+        Item item=Publisher.getInstance().getItemList().get(position);
+        name.setText(item.getName());
+        String phoneOrEmail = item.getPhone();
         if (phoneOrEmail != null) {
-            info.setText(Publisher.getInstance().getItemList().get(position).getPhone());
+            info.setText(item.getPhone());
         } else {
-            info.setText(Publisher.getInstance().getItemList().get(position).getEmail());
+            info.setText(item.getEmail());
         }
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
