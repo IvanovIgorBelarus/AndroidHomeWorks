@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="LikeGoogle">
-        <attr name="viewColor" format="color"/>
+        <attr name="firstSectorColor" format="color"/>
+        <attr name="secondSectorColor" format="color"/>
     </declare-styleable>
 </resources>

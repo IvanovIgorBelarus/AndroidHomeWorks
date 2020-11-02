@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 <by.itacademy.homework4_2.LikeGoogle
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:viewColor="@color/black"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:firstSectorColor="@color/black"
+    app:secondSectorColor="@color/design_default_color_primary_variant"
     />
 </FrameLayout>
