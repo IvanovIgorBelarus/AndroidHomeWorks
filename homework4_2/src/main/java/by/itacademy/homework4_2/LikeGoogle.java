@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -17,9 +16,13 @@ import java.util.List;
 import java.util.Random;
 
 public class LikeGoogle extends View {
-
+    private LikeGoogleListener listener;
     private int centerX;
     private int centerY;
+
+    public void setListener(LikeGoogleListener listener) {
+        this.listener = listener;
+    }
 
     private float actionX;
     private float actionY;
@@ -64,11 +67,10 @@ public class LikeGoogle extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             actionX = event.getX();
             actionY = event.getY();
+            listener.callback(actionX, actionY);
             int result = onSectorTouch(actionX, actionY);
-            Toast.makeText(getContext(), String.format("PUSH: x=%s", result), Toast.LENGTH_SHORT).show();
             Random r = new Random();
-            Paint paint = new Paint();
-            paint.setColor(colors.get(r.nextInt(8)));
+            Paint paint = sectors.get(r.nextInt(8));
             switch (result) {
                 case 0: {
                     sectors.set(0, paint);
@@ -87,7 +89,10 @@ public class LikeGoogle extends View {
                     break;
                 }
                 case 4: {
-                    sectors.set(4, paint);
+                    sectors.set(1, sectors.get(r.nextInt(8)));
+                    sectors.set(2, sectors.get(r.nextInt(8)));
+                    sectors.set(3, sectors.get(r.nextInt(8)));
+                    sectors.set(0, paint);
                     break;
                 }
             }
@@ -110,16 +115,11 @@ public class LikeGoogle extends View {
     }
 
     private List<Paint> createSectors() {
-        int i = 0;
         for (Integer color : colors) {
             Paint paint = new Paint();
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(color);
             sectors.add(paint);
-            i++;
-            if (i == 4) {
-                continue;
-            }
         }
         return sectors;
     }
