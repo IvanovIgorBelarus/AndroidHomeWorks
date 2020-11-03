@@ -24,9 +24,6 @@ public class LikeGoogle extends View {
         this.listener = listener;
     }
 
-    private float actionX;
-    private float actionY;
-
     private final int bigRadius = 500;
     private final int smallRadius = 150;
 
@@ -65,8 +62,8 @@ public class LikeGoogle extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            actionX = event.getX();
-            actionY = event.getY();
+            float actionX = event.getX();
+            float actionY = event.getY();
             listener.callback(actionX, actionY);
             int result = onSectorTouch(actionX, actionY);
             Random r = new Random();
@@ -135,20 +132,14 @@ public class LikeGoogle extends View {
         x = x - centerX;
         y = y - centerY;
         int h = (int) Math.sqrt(x * x + y * y);
-        if (h < smallRadius) {
-            return true;
-        }
-        return false;
+        return h < smallRadius;
     }
 
     private boolean isInBigCircle(float x, float y) {
         x = x - centerX;
         y = y - centerY;
         int h = (int) Math.sqrt(x * x + y * y);
-        if (h < bigRadius) {
-            return true;
-        }
-        return false;
+        return h < bigRadius;
     }
 
     private int isInSector(float x, float y) {
