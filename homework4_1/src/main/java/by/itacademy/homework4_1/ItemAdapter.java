@@ -9,18 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-    private MainActivity.ListItemActionListener listItemActionListener;
-    private List<Item> items;
-
-    public void setItems(List<Item> items) {
-        this.items = items;
+    interface ListItemActionListener {
+        void onItemClicked(int number);
     }
 
-    public ItemAdapter(List<Item> items, MainActivity.ListItemActionListener listItemActionListener) {
-        this.items = items;
+    private ListItemActionListener listItemActionListener;
+    private List<Contact> contacts;
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
+    public ItemAdapter(List<Contact> contacts, ListItemActionListener listItemActionListener) {
+        this.contacts = contacts;
         this.listItemActionListener = listItemActionListener;
     }
 
@@ -35,24 +40,41 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.bind(items.get(position));
+        holder.bind(contacts.get(position));
     }
 
     @Override
     public int getItemCount() {
-        if (items != null) {
-            return items.size();
+        if (contacts != null) {
+            return contacts.size();
         }
         return 0;
+    }
+
+    public void filter(String text) {
+        List<Contact> itemsCopy = new ArrayList<>();
+        text = text.toLowerCase();
+        if (text.isEmpty()) {
+            setContacts(contacts);
+            notifyDataSetChanged();
+            return;
+        }
+        for (Contact contact : contacts) {
+            if (contact.getName().toLowerCase().contains(text)) {
+                itemsCopy.add(contact);
+            }
+        }
+        setContacts(itemsCopy);
+        notifyDataSetChanged();
     }
 
     static class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
         private TextView info;
         private ImageView image;
-        private MainActivity.ListItemActionListener listItemActionListener;
+        private ListItemActionListener listItemActionListener;
 
-        public ItemViewHolder(@NonNull View itemView, MainActivity.ListItemActionListener listItemActionListener) {
+        public ItemViewHolder(@NonNull View itemView, ListItemActionListener listItemActionListener) {
             super(itemView);
             image = itemView.findViewById(R.id.imageRes);
             name = itemView.findViewById(R.id.textName);
@@ -60,7 +82,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             this.listItemActionListener = listItemActionListener;
         }
 
-        public void bind(Item item) {
+        public void bind(Contact contact) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,14 +91,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                     }
                 }
             });
-            name.setText(item.getName());
-            if (item.getPhone() != null) {
-                info.setText(item.getPhone());
+            name.setText(contact.getName());
+            info.setText(contact.getData());
+            if (contact.isPhone()) {
                 image.setImageResource(R.drawable.ic_contact_phone_white_48dp);
                 image.setColorFilter(image.getResources().getColor(R.color.colorPrimaryDark));
-            }
-            if (item.getEmail() != null) {
-                info.setText(item.getEmail());
+            } else {
                 image.setImageResource(R.drawable.ic_contact_mail_white_48dp);
                 image.setColorFilter(image.getResources().getColor(R.color.colorPink));
             }

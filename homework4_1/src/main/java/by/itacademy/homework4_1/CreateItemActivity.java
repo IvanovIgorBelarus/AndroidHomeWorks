@@ -13,7 +13,7 @@ public class CreateItemActivity extends AppCompatActivity {
     private RadioButton phoneNumber;
     private RadioButton email;
     private EditText name;
-    private EditText numberOrEmail;
+    private EditText data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +23,25 @@ public class CreateItemActivity extends AppCompatActivity {
         phoneNumber = findViewById(R.id.addPhone);
         email = findViewById(R.id.addEmail);
         name = findViewById(R.id.name);
-        numberOrEmail = findViewById(R.id.numberOrEmail);
+        data = findViewById(R.id.numberOrEmail);
         Toolbar toolbar = findViewById(R.id.toolbarCreate);
         setSupportActionBar(toolbar);
         findViewById(R.id.addButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item item = new Item();
+                Contact contact = new Contact();
+                contact.setData(data.getText().toString());
                 if (!phoneNumber.isChecked() && !email.isChecked()) {
                     Toast.makeText(CreateItemActivity.this, "Choose category!", Toast.LENGTH_SHORT).show();
                 } else if (!name.getText().toString().equals("")) {
-                    item.setName(name.getText().toString());
-                    if (phoneNumber.isChecked() && !numberOrEmail.getText().toString().equals("")) {
-                        item.setPhone(numberOrEmail.getText().toString());
-                        Publisher.getInstance().getItemList().add(item);
+                    contact.setName(name.getText().toString());
+                    if (phoneNumber.isChecked() && !data.getText().toString().equals("")) {
+                        Publisher.getInstance().addItem(contact);
                         finish();
                     }
-                    if (email.isChecked() && !numberOrEmail.getText().toString().equals("")) {
-                        item.setEmail(numberOrEmail.getText().toString());
-                        Publisher.getInstance().getItemList().add(item);
+                    if (email.isChecked() && !data.getText().toString().equals("")) {
+                        contact.setPhone(false);
+                        Publisher.getInstance().addItem(contact);
                         finish();
                     }
                 } else {

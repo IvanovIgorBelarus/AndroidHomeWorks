@@ -3,13 +3,13 @@ package by.itacademy.homework4_1;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Publisher implements IObserved {
-    private final List<Item> itemList = new ArrayList<>();
+public class Publisher implements Observable {
+    private final List<Contact> contactList = new ArrayList<>();
     private static Publisher INSTANCE;
     private final List<IObserver> subscribers = new ArrayList<>();
 
-    public List<Item> getItemList() {
-        return itemList;
+    public List<Contact> getContactList() {
+        return contactList;
     }
 
     public static Publisher getInstance() {
@@ -39,5 +39,19 @@ public class Publisher implements IObserved {
         for (IObserver observer : subscribers) {
             observer.notifyDataChange(position, operation);
         }
+    }
+
+    public void addItem(Contact contact) {
+        contactList.add(contact);
+    }
+
+    public void setItem(int position, Contact contact) {
+        contactList.set(position, contact);
+        notifyChanged(position, OperationType.CHANGE);
+    }
+
+    public void removeItem(int position) {
+        contactList.remove(position);
+        notifyChanged(position, OperationType.REMOVE);
     }
 }

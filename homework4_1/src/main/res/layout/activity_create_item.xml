@@ -32,6 +32,7 @@
 
         <RadioButton
             android:id="@+id/addPhone"
+            android:checked="true"
             style="@style/MyRadioButton"
             android:text="@string/phone_number" />
 

@@ -25,19 +25,13 @@
             android:textSize="16sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/frame"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_weight="9">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
+        app:layout_constraintVertical_weight="9" />
 
     <Button
         android:id="@+id/addItem"

@@ -7,9 +7,6 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import static by.itacademy.homework4_1.Constants.CHANGE;
-import static by.itacademy.homework4_1.Constants.REMOVE;
-
 public class ChangeItemActivity extends AppCompatActivity {
     private EditText name;
     private EditText info;
@@ -26,35 +23,26 @@ public class ChangeItemActivity extends AppCompatActivity {
         }
         name = findViewById(R.id.name);
         info = findViewById(R.id.info);
-        Item item=Publisher.getInstance().getItemList().get(position);
-        name.setText(item.getName());
-        String phoneOrEmail = item.getPhone();
-        if (phoneOrEmail != null) {
-            info.setText(item.getPhone());
-        } else {
-            info.setText(item.getEmail());
+        Contact contact = Publisher.getInstance().getContactList().get(position);
+        name.setText(contact.getName());
+        String data = contact.getData();
+        if (data != null) {
+            info.setText(contact.getData());
         }
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Item newItem = new Item();
-                Item oldItem = Publisher.getInstance().getItemList().get(position);
-                newItem.setName(name.getText().toString());
-                if (oldItem.getPhone() != null) {
-                    newItem.setPhone(info.getText().toString());
-                } else if (oldItem.getEmail() != null) {
-                    newItem.setEmail(info.getText().toString());
-                }
-                Publisher.getInstance().getItemList().set(position, newItem);
-                Publisher.getInstance().notifyChanged(position, CHANGE);
+                Contact newContact = new Contact();
+                newContact.setName(name.getText().toString());
+                newContact.setData(info.getText().toString());
+                Publisher.getInstance().setItem(position, newContact);
                 finish();
             }
         });
         findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Publisher.getInstance().getItemList().remove(position);
-                Publisher.getInstance().notifyChanged(position, REMOVE);
+                Publisher.getInstance().removeItem(position);
                 finish();
             }
         });

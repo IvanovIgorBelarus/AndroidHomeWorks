@@ -10,15 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static by.itacademy.homework4_1.Constants.CHANGE;
-import static by.itacademy.homework4_1.Constants.REMOVE;
-
 public class MainActivity extends AppCompatActivity implements IObserver {
     private ItemAdapter adapter;
-
-    interface ListItemActionListener {
-        void onItemClicked(int number);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +19,8 @@ public class MainActivity extends AppCompatActivity implements IObserver {
         setContentView(R.layout.activity_main);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-
-        adapter = new ItemAdapter(Publisher.getInstance().getItemList(), new ListItemActionListener() {
-            @Override
-            public void onItemClicked(int number) {
-                Intent intent = new Intent(MainActivity.this, ChangeItemActivity.class);
-                intent.putExtra("position", number);
-                startActivity(intent);
-            }
-        });
         RecyclerView recycler = findViewById(R.id.recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        recycler.setAdapter(adapter);
-
+        setRecycler(recycler);
         Publisher.getInstance().addSubscriber(this);
 
         findViewById(R.id.addItem).setOnClickListener(new View.OnClickListener() {
@@ -48,24 +30,7 @@ public class MainActivity extends AppCompatActivity implements IObserver {
             }
         });
         SearchView searchView = findViewById(R.id.searchContact);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.equals("")) {
-                    adapter.setItems(Publisher.getInstance().getItemList());
-                } else {
-                    adapter.setItems(Filter.filter(newText));
-                    adapter.notifyDataSetChanged();
-                }
-
-                return true;
-            }
-        });
+        searchViewClickListener(searchView);
     }
 
     @Override
@@ -77,15 +42,47 @@ public class MainActivity extends AppCompatActivity implements IObserver {
     @Override
     public void notifyDataChange(int position, int operation) {
         switch (operation) {
-            case REMOVE: {
+            case OperationType.REMOVE: {
                 adapter.notifyItemRemoved(position);
                 break;
             }
-            case CHANGE: {
+            case OperationType.CHANGE: {
                 adapter.notifyItemChanged(position);
                 break;
             }
         }
+    }
+
+    private void setRecycler(RecyclerView recycler) {
+        adapter = new ItemAdapter(Publisher.getInstance().getContactList(), new ItemAdapter.ListItemActionListener() {
+            @Override
+            public void onItemClicked(int number) {
+                Intent intent = new Intent(MainActivity.this, ChangeItemActivity.class);
+                intent.putExtra("position", number);
+                startActivity(intent);
+            }
+        });
+        recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        recycler.setAdapter(adapter);
+    }
+
+    private void searchViewClickListener(SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    adapter.setContacts(Publisher.getInstance().getContactList());
+                } else {
+                    adapter.filter(newText);
+                }
+                return true;
+            }
+        });
     }
 
 }

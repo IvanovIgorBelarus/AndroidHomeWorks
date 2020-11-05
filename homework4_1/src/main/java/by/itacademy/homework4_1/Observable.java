@@ -1,6 +1,6 @@
 package by.itacademy.homework4_1;
 
-public interface IObserved {
+public interface Observable {
     void addSubscriber(IObserver observer);
 
     void removeSubscriber(IObserver observer);
