@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/PHOTO"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/colorGrey"
+        android:gravity="center"
+        android:text="@string/photo"
+        android:textColor="@color/colorBlack"
+        android:textSize="56sp" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignEnd="@id/PHOTO"
+        android:layout_alignBottom="@id/PHOTO"
+        android:background="@drawable/ic_camera_alt_white_48dp" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/Hyperlink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/PHOTO"
+        android:hint="@string/title"
+        android:paddingTop="24dp" />
+
+    <TextView
+        android:id="@+id/price"
+        style="@style/Hyperlink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:hint="@string/price"
+        android:paddingTop="48dp"
+        android:paddingEnd="@android:dimen/app_icon_size" />
+
+    <TextView
+        android:id="@+id/location"
+        style="@style/Hyperlink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@id/price"
+        android:drawableEnd="@drawable/ic_room_grey600_48dp"
+        android:hint="@string/location"
+        android:paddingTop="48dp" />
+
+    <TextView
+        android:id="@+id/description"
+        style="@style/Hyperlink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/location"
+        android:hint="@string/description"
+        android:paddingTop="48dp" />
+
+    <TextView
+        android:id="@+id/inventory"
+        style="@style/Hyperlink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        android:hint="@string/inventory"
+        android:paddingTop="24dp"
+        android:paddingEnd="25dp" />
+
+    <TextView
+        android:id="@+id/weight"
+        style="@style/Hyperlink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/description"
+        android:layout_alignParentEnd="true"
+        android:hint="@string/weight"
+        android:paddingTop="24dp"
+        android:paddingEnd="50dp" />
+</RelativeLayout>
