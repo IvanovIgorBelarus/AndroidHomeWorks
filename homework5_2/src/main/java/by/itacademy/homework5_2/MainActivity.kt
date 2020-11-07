@@ -28,6 +28,11 @@ class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
         setRecycler(instance.getContacts(), this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        instance.removeSubscriber(this)
+    }
+
     private fun buttonClick(button: Button) {
         button.setOnClickListener {
             startActivity(Intent(this, CreateItemActivity::class.java))
