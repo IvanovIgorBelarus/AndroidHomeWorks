@@ -9,6 +9,8 @@ class Data private constructor() : Observable {
         val instance: Data by lazy { DataHolder.INSTANCE }
     }
 
+    val CHANGE = 1
+    val REMOVE = 2
     private val contactList = mutableListOf<Contact>()
     private val subscribers = mutableListOf<Observer>()
     override fun addSubscriber(subscriber: Observer) {
@@ -23,15 +25,19 @@ class Data private constructor() : Observable {
         subscribers.forEach { subscriber: Observer -> subscriber.notify(position, operation) }
     }
 
+    fun getContacts() = contactList
+
     fun addContact(contact: Contact) {
         if (!contactList.contains(contact)) contactList.add(contact)
     }
 
-    fun removeContact(contact: Contact) {
-        contactList.remove(contact)
+    fun removeContact(position: Int) {
+        contactList.remove(contactList[position])
+        notifySubscribers(position, REMOVE)
     }
 
     fun setContact(position: Int, contact: Contact) {
         contactList[position] = contact
+        notifySubscribers(position, CHANGE)
     }
 }

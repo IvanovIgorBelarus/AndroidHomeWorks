@@ -13,7 +13,7 @@ class CreateItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateItemBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.backFromCreate.setOnClickListener { finish() }
         addContact(binding.addButton)
     }
 
@@ -24,16 +24,18 @@ class CreateItemActivity : AppCompatActivity() {
             val dataText = binding.numberOrEmail.text.toString()
             val email = binding.addEmail.isChecked
             val phone = binding.addPhone.isChecked
-            
-            if (!phone&&!email){
-                Toast.makeText(this, "Choose category!", Toast.LENGTH_SHORT).show();
-            val contact: Contact = Contact().apply {
-                name = nameText
-                data = dataText
+
+            if (nameText != "" && dataText != "") {
+                val contact: Contact = Contact().apply {
+                    name = nameText
+                    data = dataText
+                }
+                if (email) contact.isPhone = false
+                instance.addContact(contact)
+                finish()
+            } else {
+                Toast.makeText(this, "Add info!", Toast.LENGTH_SHORT).show()
             }
-            if (email) contact.isPhone = false
-            instance.addContact(contact)
-            finish()}
         }
     }
 }
