@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val newList = instance.getContacts().filter { contact -> contact.name.toLowerCase().contains(newText.toString()) }
+                val newList = instance.getContacts().filter { contact -> contact.name.toLowerCase().contains(newText.toString().toLowerCase()) }
                 setRecycler(newList, this@MainActivity)
                 return true
             }
