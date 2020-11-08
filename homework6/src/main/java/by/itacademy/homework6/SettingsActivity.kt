@@ -1,11 +1,22 @@
 package by.itacademy.homework6
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.homework6.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySettingsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.update.setOnClickListener {
+            storageType = binding.internalStorage.isChecked
+            finish()
+        }
+    }
+
+    companion object {
+        var storageType: Boolean = true
     }
 }
