@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">homework6</string>
-    <string name="text_hint">File name</string>
+    <string name="internal_storage">Internal storage</string>
+    <string name="external_storage">External storage</string>
 </resources>
