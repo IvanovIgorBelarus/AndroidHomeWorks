@@ -6,4 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".TextRedactorActivity">
 
+    <EditText
+        android:id="@+id/redactorView"
+        android:hint="@string/redactor_hint"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/addChanges"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/ic_system_update_alt_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
