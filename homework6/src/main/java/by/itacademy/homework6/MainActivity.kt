@@ -12,10 +12,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.homework6.Data.Companion.dataInstance
+import by.itacademy.homework6.SettingsActivity.Companion.isInternalStorage
 import by.itacademy.homework6.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import java.io.File
 
 
 class MainActivity : AppCompatActivity(), FileActionListener {
@@ -37,6 +39,11 @@ class MainActivity : AppCompatActivity(), FileActionListener {
 
     override fun onStart() {
         super.onStart()
+        if (isInternalStorage) {
+            applicationContext.filesDir.listFiles { file -> dataInstance.fileList.add(file.name) }
+        }else{
+            dataInstance.fileList.clear()
+        }
         setRecycler(dataInstance.fileList, this)
     }
 
@@ -97,7 +104,10 @@ class MainActivity : AppCompatActivity(), FileActionListener {
     }
 
     private fun saveFile(name: String) {
-        dataInstance.fileList.add(name)
+        if (isInternalStorage) {
+            File(applicationContext.filesDir, name).createNewFile()
+            dataInstance.fileList.add(name)
+        }
         fileAdapter.notifyDataSetChanged()
     }
 
