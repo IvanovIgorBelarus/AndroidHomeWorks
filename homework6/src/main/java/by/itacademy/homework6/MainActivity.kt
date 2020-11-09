@@ -10,14 +10,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.homework6.Data.Companion.dataInstance
 import by.itacademy.homework6.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), FileActionListener {
+
     private lateinit var binding: ActivityMainBinding
+    private lateinit var fileAdapter: FileAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         binding.settings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setRecycler(dataInstance.fileList, this)
     }
 
     private fun runDialog(context: Context) {
@@ -42,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             setCancelable(false)
             setPositiveButton("SAVE", null).setOnDismissListener {
                 val name = textInputEditText.text.toString()
-                Toast.makeText(context, String.format("SAVE name=%s", name), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, String.format("SAVE File  %s", name), Toast.LENGTH_SHORT).show()
                 saveFile(name)
             }
         }
@@ -87,7 +97,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveFile(name: String) {
+        dataInstance.fileList.add(name)
+        fileAdapter.notifyDataSetChanged()
+    }
 
+    private fun setRecycler(fileList: List<String>, activity: MainActivity) {
+        val recycler = binding.recycler
+        fileAdapter = FileAdapter(fileList, activity)
+        recycler.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = fileAdapter
+
+        }
+    }
+
+    override fun onFileClicked(position: Int) {
+        intent = Intent(this, TextRedactorActivity::class.java)
+        intent.putExtra("position", position)
+        startActivity(intent)
     }
 
 }
