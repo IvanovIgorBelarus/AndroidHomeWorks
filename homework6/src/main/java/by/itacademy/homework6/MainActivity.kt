@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
             setView(constraintLayout)
             setNeutralButton("CANCEL", null)
             setCancelable(false)
+            //какой здесь должен быть clickListener? сейчас сохранения срабатывает при нажатии на любую кнопку...
             setPositiveButton("SAVE", null).setOnDismissListener {
                 val name = textInputEditText.text.toString()
                 Toast.makeText(context, String.format("SAVE File  %s", name), Toast.LENGTH_SHORT).show()
