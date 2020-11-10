@@ -9,6 +9,6 @@ class Data private constructor() {
         val dataInstance: Data by lazy { DataHolder.INSTANCE }
 
     }
-    val fileList = mutableListOf<String>()
 
+    val fileList = mutableListOf<String>()
 }
