@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         super.onStart()
         if (isInternalStorage) {
             applicationContext.filesDir.listFiles { file -> dataInstance.fileList.add(file.name) }
-        }else{
+        } else {
             dataInstance.fileList.clear()
         }
         setRecycler(dataInstance.fileList, this)
