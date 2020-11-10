@@ -10,7 +10,7 @@ class ChangeItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeItemBinding.inflate(layoutInflater)
-        val position = if (intent != null) intent.getIntExtra("position", 0) else -1
+        val position = intent?.getIntExtra("position",0)?:-1
 
         val contact = instance.getContacts()[position]
         binding.name.setText(contact.name)
@@ -22,8 +22,7 @@ class ChangeItemActivity : AppCompatActivity() {
 
     private fun changeContact(position: Int) {
         binding.back.setOnClickListener {
-            val contact = Contact()
-            contact.apply {
+            val contact = Contact().apply {
                 name = binding.name.text.toString()
                 data = binding.info.text.toString()
                 isPhone = instance.getContacts()[position].isPhone
