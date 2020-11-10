@@ -29,14 +29,14 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun saveStorageState(storageState: Boolean) {
-        val pref = getPreferences(Context.MODE_PRIVATE)
+        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.putBoolean("1", storageState)
         editor.apply()
     }
 
     private fun loadStorageState(): Boolean {
-        val pref = getPreferences(Context.MODE_PRIVATE)
+        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
         return pref.getBoolean("1", true)
     }
 }

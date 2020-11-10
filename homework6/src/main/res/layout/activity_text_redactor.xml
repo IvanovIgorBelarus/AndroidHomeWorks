@@ -8,11 +8,11 @@
 
     <EditText
         android:id="@+id/redactorView"
-        android:hint="@string/redactor_hint"
-        android:gravity="center"
-        android:textColor="@color/black"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:hint="@string/redactor_hint"
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/addChanges"

@@ -3,6 +3,7 @@ package by.itacademy.homework6
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.homework6.Data.Companion.dataInstance
+import by.itacademy.homework6.SettingsActivity.Companion.isInternalStorage
 import by.itacademy.homework6.databinding.ActivityTextRedactorBinding
 import java.io.File
 
@@ -14,7 +15,12 @@ class TextRedactorActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val position = intent.getIntExtra("position", 0)
-        val file = File(filesDir, dataInstance.fileList[position])
+        var file: File? = null
+        file = if (isInternalStorage) {
+            File(filesDir, dataInstance.fileList[position])
+        } else {
+            File(this.getExternalFilesDir(packageName), dataInstance.fileList[position])
+        }
         binding.redactorView.setText(file.readText())
         binding.addChanges.setOnClickListener {
             file.bufferedWriter().use { out ->

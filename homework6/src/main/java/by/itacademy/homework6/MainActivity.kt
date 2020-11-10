@@ -35,14 +35,16 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         binding.settings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
+        isInternalStorage = loadStorageState()
     }
 
     override fun onStart() {
         super.onStart()
+        dataInstance.fileList.clear()
         if (isInternalStorage) {
-            applicationContext.filesDir.listFiles { file -> dataInstance.fileList.add(file.name) }
+            filesDir.listFiles { file -> dataInstance.fileList.add(file.name) }
         } else {
-            dataInstance.fileList.clear()
+            getExternalFilesDir(packageName)?.listFiles { file -> dataInstance.fileList.add(file.name) }
         }
         setRecycler(dataInstance.fileList, this)
     }
@@ -50,7 +52,6 @@ class MainActivity : AppCompatActivity(), FileActionListener {
     private fun runDialog(context: Context) {
         val builder = MaterialAlertDialogBuilder(context)
         val constraintLayout = getEditTextLayout(context)
-        //  val textInputLayout = constraintLayout.findViewWithTag<TextInputLayout>("textInputLayout")
         val textInputEditText = constraintLayout.findViewWithTag<TextInputEditText>("textInputEditText")
         builder.apply {
             setTitle("Add file name")
@@ -94,20 +95,20 @@ class MainActivity : AppCompatActivity(), FileActionListener {
             tag = "textInputLayout"
             addView(textInputEditText)
         }
-        val constraintLayout = ConstraintLayout(context).apply {
+        return ConstraintLayout(context).apply {
             layoutParams = layoutParamsConstraint
             id = View.generateViewId()
             addView(textInputLayout)
         }
-        //  val constraintSet = ConstraintSet().clone(constraintLayout)
-        return constraintLayout
     }
 
     private fun saveFile(name: String) {
         if (isInternalStorage) {
-            File(applicationContext.filesDir, name).createNewFile()
-            dataInstance.fileList.add(name)
+            File(filesDir, name).createNewFile()
+        } else {
+            File(getExternalFilesDir(packageName), name).createNewFile()
         }
+        dataInstance.fileList.add(name)
         fileAdapter.notifyDataSetChanged()
     }
 
@@ -117,7 +118,6 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         recycler.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = fileAdapter
-
         }
     }
 
@@ -127,4 +127,8 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         startActivity(intent)
     }
 
+    private fun loadStorageState(): Boolean {
+        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
+        return pref.getBoolean("1", true)
+    }
 }

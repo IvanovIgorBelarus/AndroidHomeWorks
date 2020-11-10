@@ -9,9 +9,9 @@
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/internalStorage"
         android:layout_marginStart="48dp"
         android:layout_marginTop="48dp"
+        android:checkedButton="@id/internalStorage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -31,6 +31,7 @@
             android:textColor="@color/purple_700"
             android:textSize="24sp" />
     </RadioGroup>
+
     <Button
         android:id="@+id/update"
         android:layout_width="48dp"
