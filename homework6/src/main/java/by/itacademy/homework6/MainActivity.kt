@@ -1,6 +1,7 @@
 package by.itacademy.homework6
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -56,10 +57,9 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         builder.apply {
             setTitle("Add file name")
             setView(constraintLayout)
-            setNeutralButton("CANCEL", null)
+            setNegativeButton("CANCEL", null)
             setCancelable(false)
-            //какой здесь должен быть clickListener? сейчас сохранения срабатывает при нажатии на любую кнопку...
-            setPositiveButton("SAVE", null).setOnDismissListener {
+            setPositiveButton("SAVE") { _: DialogInterface, _: Int ->
                 val name = textInputEditText.text.toString()
                 Toast.makeText(context, String.format("SAVE File  %s", name), Toast.LENGTH_SHORT).show()
                 saveFile(name)
