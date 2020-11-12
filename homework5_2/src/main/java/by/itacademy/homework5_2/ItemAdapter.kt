@@ -32,11 +32,11 @@ class ItemAdapter(private val contactList: List<Contact>,
             name.text = contact.name
             info.text = contact.data
             if (contact.isPhone) {
-                image.run {
+                image.apply {
                     setImageResource(R.drawable.ic_contact_phone_white_48dp)
                     setColorFilter(resources.getColor(R.color.colorPrimaryDark))
                 }
-            } else image.run {
+            } else image.apply {
                 setImageResource(R.drawable.ic_contact_phone_white_48dp)
                 setColorFilter(resources.getColor(R.color.colorPink))
             }
