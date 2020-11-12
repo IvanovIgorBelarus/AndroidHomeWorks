@@ -7,7 +7,6 @@ class Data private constructor() {
 
     companion object {
         val dataInstance: Data by lazy { DataHolder.INSTANCE }
-
     }
 
     val fileList = mutableListOf<String>()
