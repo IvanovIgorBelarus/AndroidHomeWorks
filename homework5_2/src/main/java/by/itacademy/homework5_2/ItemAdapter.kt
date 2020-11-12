@@ -1,6 +1,6 @@
 package by.itacademy.homework5_2
 
-import android.view.LayoutInflater
+import android.view.LayoutInflater.from
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,7 +12,7 @@ class ItemAdapter(private val contactList: List<Contact>,
         RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recyclerview, parent, false)
+        val view = from(parent.context).inflate(R.layout.item_recyclerview, parent, false)
         return ItemViewHolder(view)
     }
 

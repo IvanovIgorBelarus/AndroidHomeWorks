@@ -24,11 +24,6 @@ class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
         setRecycler(instance.getContacts(), this)
     }
 
-    override fun onStart() {
-        super.onStart()
-        itemAdapter.notifyDataSetChanged()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         instance.removeSubscriber(this)
