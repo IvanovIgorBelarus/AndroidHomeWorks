@@ -1,6 +1,7 @@
 package by.itacademy.homework5_2
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,8 +12,8 @@ class ItemAdapter(private val contactList: List<Contact>,
         RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        return ItemViewHolder(inflater, parent)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_recyclerview, parent, false)
+        return ItemViewHolder(view)
     }
 
     override fun getItemCount() = contactList.size
@@ -22,7 +23,7 @@ class ItemAdapter(private val contactList: List<Contact>,
         holder.itemView.setOnClickListener { listItemActionListener.onItemClicked(position) }
     }
 
-    class ItemViewHolder(inflater: LayoutInflater, parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_recyclerview, parent, false)) {
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var name = itemView.findViewById<TextView>(R.id.textName)
         private var info = itemView.findViewById<TextView>(R.id.textInfo)
         private var image = itemView.findViewById<ImageView>(R.id.imageRes)

@@ -21,11 +21,12 @@ class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
         setSupportActionBar(binding.toolbar)
         search()
         buttonClick(binding.addItem)
+        setRecycler(instance.getContacts(), this)
     }
 
     override fun onStart() {
         super.onStart()
-        setRecycler(instance.getContacts(), this)
+        itemAdapter.notifyDataSetChanged()
     }
 
     override fun onDestroy() {
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
     private fun search() {
         binding.searchContact.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
