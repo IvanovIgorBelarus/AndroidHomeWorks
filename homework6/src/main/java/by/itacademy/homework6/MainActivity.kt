@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
             startActivity(Intent(this, SettingsActivity::class.java))
         }
         isInternalStorage = loadStorageState()
+        setRecycler(dataInstance.fileList, this)
     }
 
     override fun onStart() {
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         } else {
             getExternalFilesDir(packageName)?.listFiles { file -> dataInstance.fileList.add(file.name) }
         }
-        setRecycler(dataInstance.fileList, this)
+        fileAdapter.notifyDataSetChanged()
     }
 
     private fun runDialog(context: Context) {
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         }
     }
 
-    private fun saveFile(name: String) {
+     fun saveFile(name: String) {
         if (isInternalStorage) {
             File(filesDir, name).createNewFile()
         } else {
