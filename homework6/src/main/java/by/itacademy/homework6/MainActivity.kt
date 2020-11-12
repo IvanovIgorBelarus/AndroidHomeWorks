@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         }
     }
 
-     fun saveFile(name: String) {
+     private fun saveFile(name: String) {
         if (isInternalStorage) {
             File(filesDir, name).createNewFile()
         } else {
