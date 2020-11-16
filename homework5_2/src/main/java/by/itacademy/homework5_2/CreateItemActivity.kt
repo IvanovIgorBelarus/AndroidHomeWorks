@@ -1,10 +1,10 @@
 package by.itacademy.homework5_2
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import by.itacademy.homework5_2.Data.Companion.instance
 import by.itacademy.homework5_2.databinding.ActivityCreateItemBinding
 
 class CreateItemActivity : AppCompatActivity() {
@@ -30,12 +30,25 @@ class CreateItemActivity : AppCompatActivity() {
                     name = nameText
                     data = dataText
                 }
-                if (email) contact.isPhone = false
-                instance.addContact(contact)
+                if (email) contact.isPhone = 0
+                saveContactInDB(contact)
+                //instance.addContact(contact)
                 finish()
             } else {
                 Toast.makeText(this, "Add info!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun saveContactInDB(contact: Contact) {
+        val contentValues = ContentValues().apply {
+            put("name", contact.name)
+            put("isPhone", contact.isPhone)
+            put("data", contact.data)
+        }
+        (applicationContext as App)
+                .dbHelper
+                .writableDatabase
+                .insert("contacts", null, contentValues)
     }
 }
