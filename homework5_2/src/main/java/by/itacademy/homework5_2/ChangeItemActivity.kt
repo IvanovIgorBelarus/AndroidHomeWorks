@@ -1,5 +1,6 @@
 package by.itacademy.homework5_2
 
+import android.content.ContentValues
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.homework5_2.databinding.ActivityChangeItemBinding
@@ -25,14 +26,25 @@ class ChangeItemActivity : AppCompatActivity() {
                 name = binding.name.text.toString()
                 data = binding.info.text.toString()
             }
-            instance.setContact(position, contact)
+            val contentValue= ContentValues().apply {
+                put("name", contact.name)
+                put("isPhone", contact.isPhone)
+                put("data", contact.data)
+            }
+            val cursor=(applicationContext as App)
+                    .dbHelper
+                    .writableDatabase
+                    .update("contacts",contentValue,""+getUsersFromDB()[position].id+" =id",null)
             finish()
         }
     }
 
     private fun removeContact(position: Int) {
         binding.remove.setOnClickListener {
-            instance.removeContact(position)
+            val cursor=(applicationContext as App)
+                    .dbHelper
+                    .writableDatabase
+                    .delete("contacts",""+getUsersFromDB()[position].id+" =id",null)
             finish()
         }
     }
@@ -42,6 +54,7 @@ class ChangeItemActivity : AppCompatActivity() {
                 .readableDatabase
                 .query("contacts",null, null,null,null,null,null)
         if (cursor!=null){
+            val idIndex=cursor.getColumnIndex("id")
             val indexName=cursor.getColumnIndex("name")
             val indexIsPhone=cursor.getColumnIndex("isPhone")
             val indexData=cursor.getColumnIndex("data")
@@ -51,6 +64,7 @@ class ChangeItemActivity : AppCompatActivity() {
                     name=cursor.getString(indexName)
                     isPhone=cursor.getInt(indexIsPhone)
                     data=cursor.getString(indexData)
+                    id=cursor.getInt(idIndex)
                 })
             }
             cursor.close()

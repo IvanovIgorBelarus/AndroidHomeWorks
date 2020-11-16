@@ -80,8 +80,8 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
     }
 
     override fun onItemClicked(number: Int) {
-//        intent = Intent(this, ChangeItemActivity::class.java)
-//        intent.putExtra("position", number)
-//        startActivity(intent)
+        intent = Intent(this, ChangeItemActivity::class.java)
+        intent.putExtra("position", number)
+        startActivity(intent)
     }
 }
