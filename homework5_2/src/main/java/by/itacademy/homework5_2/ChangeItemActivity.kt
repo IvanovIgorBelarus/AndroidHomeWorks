@@ -10,7 +10,7 @@ class ChangeItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeItemBinding.inflate(layoutInflater)
-        val position = intent?.getIntExtra("position",0)?:-1
+        val position = intent?.getIntExtra("position", 0) ?: -1
 
         val contact = getUsersFromDB()[position]
         binding.name.setText(contact.name)
@@ -18,7 +18,7 @@ class ChangeItemActivity : AppCompatActivity() {
         changeContact(position)
         removeContact(position)
         setContentView(binding.root)
-  }
+    }
 
     private fun changeContact(position: Int) {
         binding.back.setOnClickListener {
@@ -26,45 +26,46 @@ class ChangeItemActivity : AppCompatActivity() {
                 name = binding.name.text.toString()
                 data = binding.info.text.toString()
             }
-            val contentValue= ContentValues().apply {
+            val contentValue = ContentValues().apply {
                 put("name", contact.name)
                 put("isPhone", contact.isPhone)
                 put("data", contact.data)
             }
-            val cursor=(applicationContext as App)
+            val cursor = (applicationContext as App)
                     .dbHelper
                     .writableDatabase
-                    .update("contacts",contentValue,""+getUsersFromDB()[position].id+" =id",null)
+                    .update("contacts", contentValue, "" + getUsersFromDB()[position].id + " =id", null)
             finish()
         }
     }
 
     private fun removeContact(position: Int) {
         binding.remove.setOnClickListener {
-            val cursor=(applicationContext as App)
+            val cursor = (applicationContext as App)
                     .dbHelper
                     .writableDatabase
-                    .delete("contacts",""+getUsersFromDB()[position].id+" =id",null)
+                    .delete("contacts", "" + getUsersFromDB()[position].id + " =id", null)
             finish()
         }
     }
-    private fun getUsersFromDB():List<Contact>{
-        val cursor=(application as App)
+
+    private fun getUsersFromDB(): List<Contact> {
+        val cursor = (application as App)
                 .dbHelper
                 .readableDatabase
-                .query("contacts",null, null,null,null,null,null)
-        if (cursor!=null){
-            val idIndex=cursor.getColumnIndex("id")
-            val indexName=cursor.getColumnIndex("name")
-            val indexIsPhone=cursor.getColumnIndex("isPhone")
-            val indexData=cursor.getColumnIndex("data")
-            val contactList= mutableListOf<Contact>()
-            while (cursor.moveToNext()){
+                .query("contacts", null, null, null, null, null, null)
+        if (cursor != null) {
+            val idIndex = cursor.getColumnIndex("id")
+            val indexName = cursor.getColumnIndex("name")
+            val indexIsPhone = cursor.getColumnIndex("isPhone")
+            val indexData = cursor.getColumnIndex("data")
+            val contactList = mutableListOf<Contact>()
+            while (cursor.moveToNext()) {
                 contactList.add(Contact().apply {
-                    name=cursor.getString(indexName)
-                    isPhone=cursor.getInt(indexIsPhone)
-                    data=cursor.getString(indexData)
-                    id=cursor.getInt(idIndex)
+                    name = cursor.getString(indexName)
+                    isPhone = cursor.getInt(indexIsPhone)
+                    data = cursor.getString(indexData)
+                    id = cursor.getInt(idIndex)
                 })
             }
             cursor.close()

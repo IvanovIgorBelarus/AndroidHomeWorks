@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
         itemAdapter.updateItem(getUsersFromDB())
     }
 
-    private fun getUsersFromDB():List<Contact>{
+    fun getUsersFromDB():List<Contact>{
         val cursor=(applicationContext as App)
                 .dbHelper
                 .readableDatabase
