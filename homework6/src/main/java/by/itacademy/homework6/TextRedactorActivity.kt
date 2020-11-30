@@ -13,9 +13,8 @@ class TextRedactorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTextRedactorBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val position = intent.getIntExtra("position", 0)
-        var file: File? = null
+        var file: File?
         file = if (isInternalStorage) {
             File(filesDir, dataInstance.fileList[position])
         } else {

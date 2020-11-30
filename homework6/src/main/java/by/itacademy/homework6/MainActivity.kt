@@ -18,36 +18,32 @@ import by.itacademy.homework6.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import java.io.File
-
 
 class MainActivity : AppCompatActivity(), FileActionListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var fileAdapter: FileAdapter
-
+    private val fileOperations: FileOperations = FileOperationsImpl()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.addFile.setOnClickListener {
-            runDialog(this)
+        with(binding) {
+            addFile.setOnClickListener {
+                runDialog(this@MainActivity)
+            }
+            settings.setOnClickListener {
+                startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+            }
         }
-        binding.settings.setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
-        isInternalStorage = loadStorageState()
+        isInternalStorage = fileOperations.loadStorageState(applicationContext)
         setRecycler(dataInstance.fileList, this)
     }
 
     override fun onStart() {
         super.onStart()
         dataInstance.fileList.clear()
-        if (isInternalStorage) {
-            filesDir.listFiles { file -> dataInstance.fileList.add(file.name) }
-        } else {
-            getExternalFilesDir(packageName)?.listFiles { file -> dataInstance.fileList.add(file.name) }
-        }
+        fileOperations.getFiles(applicationContext)
         fileAdapter.notifyDataSetChanged()
     }
 
@@ -63,7 +59,8 @@ class MainActivity : AppCompatActivity(), FileActionListener {
             setPositiveButton("SAVE") { _: DialogInterface, _: Int ->
                 val name = textInputEditText.text.toString()
                 Toast.makeText(context, String.format("SAVE File  %s", name), Toast.LENGTH_SHORT).show()
-                saveFile(name)
+                fileOperations.saveFile(applicationContext, name)
+                fileAdapter.notifyDataSetChanged()
             }
         }
         val dialog = builder.create()
@@ -104,15 +101,15 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         }
     }
 
-     private fun saveFile(name: String) {
-        if (isInternalStorage) {
-            File(filesDir, name).createNewFile()
-        } else {
-            File(getExternalFilesDir(packageName), name).createNewFile()
-        }
-        dataInstance.fileList.add(name)
-        fileAdapter.notifyDataSetChanged()
-    }
+//    private fun saveFile(name: String) {
+//        if (isInternalStorage) {
+//            File(filesDir, name).createNewFile()
+//        } else {
+//            File(getExternalFilesDir(packageName), name).createNewFile()
+//        }
+//        dataInstance.fileList.add(name)
+//        fileAdapter.notifyDataSetChanged()
+//    }
 
     private fun setRecycler(fileList: List<String>, activity: MainActivity) {
         val recycler = binding.recycler
@@ -129,8 +126,8 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         startActivity(intent)
     }
 
-    private fun loadStorageState(): Boolean {
-        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
-        return pref.getBoolean("1", true)
-    }
+//    private fun loadStorageState(): Boolean {
+//        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
+//        return pref.getBoolean("1", true)
+//    }
 }

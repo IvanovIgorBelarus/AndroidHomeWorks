@@ -7,6 +7,7 @@ import by.itacademy.homework6.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
+    private val fileOperations: FileOperations = FileOperationsImpl()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -17,26 +18,17 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
     }
-
     override fun onStart() {
         super.onStart()
-        binding.internalStorage.isChecked = loadStorageState()
-        binding.externalStorage.isChecked = !loadStorageState()
+            binding.internalStorage.isChecked = fileOperations.loadStorageState(applicationContext)
     }
-
-    companion object {
-        var isInternalStorage: Boolean = true
-    }
-
     private fun saveStorageState(storageState: Boolean) {
         val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.putBoolean("1", storageState)
         editor.apply()
     }
-
-    private fun loadStorageState(): Boolean {
-        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
-        return pref.getBoolean("1", true)
+    companion object {
+        var isInternalStorage: Boolean = true
     }
 }
