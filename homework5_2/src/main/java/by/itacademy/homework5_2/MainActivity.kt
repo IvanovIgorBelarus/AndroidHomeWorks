@@ -11,6 +11,7 @@ import by.itacademy.homework5_2.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), ListItemActionListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemAdapter: ItemAdapter
+    private val dbOperations: DBOperations = DBOperationsImpl()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -24,30 +25,7 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
 
     override fun onResume() {
         super.onResume()
-        itemAdapter.updateItem(getUsersFromDB())
-    }
-
-    fun getUsersFromDB():List<Contact>{
-        val cursor=(applicationContext as App)
-                .dbHelper
-                .readableDatabase
-                .query("contacts",null, null,null,null,null,null)
-        if (cursor!=null){
-            val indexName=cursor.getColumnIndex("name")
-            val indexIsPhone=cursor.getColumnIndex("isPhone")
-            val indexData=cursor.getColumnIndex("data")
-            val contactList= mutableListOf<Contact>()
-            while (cursor.moveToNext()){
-                contactList.add(Contact().apply {
-                    name=cursor.getString(indexName)
-                    isPhone=cursor.getInt(indexIsPhone)
-                    data=cursor.getString(indexData)
-                })
-            }
-            cursor.close()
-            return contactList
-        }
-        return emptyList()
+        itemAdapter.updateItem(dbOperations.getUsersFromDB(applicationContext))
     }
 
     private fun buttonClick(button: Button) {
@@ -56,7 +34,7 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
         }
     }
 
-    private fun setRecycler( activity: MainActivity) {
+    private fun setRecycler(activity: MainActivity) {
         val recycler = binding.recycler
         itemAdapter = ItemAdapter(activity)
         recycler.apply {
@@ -72,7 +50,7 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val newList = getUsersFromDB().filter { contact -> contact.name.toLowerCase().contains(newText.toString().toLowerCase()) }
+                val newList = dbOperations.getUsersFromDB(applicationContext).filter { contact -> contact.name.toLowerCase().contains(newText.toString().toLowerCase()) }
                 itemAdapter.updateItem(newList)
                 return true
             }
