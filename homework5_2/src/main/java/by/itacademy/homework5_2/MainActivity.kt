@@ -6,27 +6,26 @@ import android.widget.Button
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.homework5_2.Data.Companion.instance
 import by.itacademy.homework5_2.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
+class MainActivity : AppCompatActivity(), ListItemActionListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemAdapter: ItemAdapter
+    private val dbOperations: DBOperations = DBOperationsImpl()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        instance.addSubscriber(this)
 
         setSupportActionBar(binding.toolbar)
         search()
         buttonClick(binding.addItem)
-        setRecycler(instance.getContacts(), this)
+        setRecycler(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        instance.removeSubscriber(this)
+    override fun onResume() {
+        super.onResume()
+        itemAdapter.updateItem(dbOperations.getUsersFromDB(applicationContext))
     }
 
     private fun buttonClick(button: Button) {
@@ -35,9 +34,9 @@ class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
         }
     }
 
-    private fun setRecycler(contactList: List<Contact>, activity: MainActivity) {
+    private fun setRecycler(activity: MainActivity) {
         val recycler = binding.recycler
-        itemAdapter = ItemAdapter(contactList, activity)
+        itemAdapter = ItemAdapter(activity)
         recycler.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = itemAdapter
@@ -51,18 +50,11 @@ class MainActivity : AppCompatActivity(), Observer, ListItemActionListener {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val newList = instance.getContacts().filter { contact -> contact.name.toLowerCase().contains(newText.toString().toLowerCase()) }
-                setRecycler(newList, this@MainActivity)
+                val newList = dbOperations.getUsersFromDB(applicationContext).filter { contact -> contact.name.toLowerCase().contains(newText.toString().toLowerCase()) }
+                itemAdapter.updateItem(newList)
                 return true
             }
         })
-    }
-
-    override fun notify(position: Int, operation: Int) {
-        when (operation) {
-            instance.CHANGE -> itemAdapter.notifyItemChanged(position)
-            instance.REMOVE -> itemAdapter.notifyItemRemoved(position)
-        }
     }
 
     override fun onItemClicked(number: Int) {
