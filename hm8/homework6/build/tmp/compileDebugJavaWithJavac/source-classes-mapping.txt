@@ -1,0 +1,10 @@
+by/itacademy/homework6/databinding/ActivityMainBinding.java
+ by.itacademy.homework6.databinding.ActivityMainBinding
+by/itacademy/homework6/databinding/ActivityTextRedactorBinding.java
+ by.itacademy.homework6.databinding.ActivityTextRedactorBinding
+by/itacademy/homework6/databinding/ActivitySettingsBinding.java
+ by.itacademy.homework6.databinding.ActivitySettingsBinding
+by/itacademy/homework6/databinding/ItemRecyclerBinding.java
+ by.itacademy.homework6.databinding.ItemRecyclerBinding
+by/itacademy/homework6/BuildConfig.java
+ by.itacademy.homework6.BuildConfig

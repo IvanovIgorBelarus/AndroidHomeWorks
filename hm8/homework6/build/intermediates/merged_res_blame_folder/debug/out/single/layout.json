@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\AndroidHomeWorks\\homework6\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_settings.xml",
+        "source": "E:\\AndroidHomeWorks\\homework6\\src\\main\\res\\layout\\activity_settings.xml"
+    },
+    {
+        "merged": "E:\\AndroidHomeWorks\\homework6\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "E:\\AndroidHomeWorks\\homework6\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "E:\\AndroidHomeWorks\\homework6\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_text_redactor.xml",
+        "source": "E:\\AndroidHomeWorks\\homework6\\src\\main\\res\\layout\\activity_text_redactor.xml"
+    },
+    {
+        "merged": "E:\\AndroidHomeWorks\\homework6\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\item_recycler.xml",
+        "source": "E:\\AndroidHomeWorks\\homework6\\src\\main\\res\\layout\\item_recycler.xml"
+    }
+]
