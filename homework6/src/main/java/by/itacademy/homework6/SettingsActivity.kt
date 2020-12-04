@@ -1,34 +1,32 @@
 package by.itacademy.homework6
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.homework6.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
-    private val fileOperations: FileOperations = FileOperationsImpl()
+    private val fileOperations: FileOperations = FileOperationsImpl(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.update.setOnClickListener {
-            isInternalStorage = binding.internalStorage.isChecked
-            saveStorageState(isInternalStorage)
+            fileOperations.saveStorageState(binding.internalStorage.isChecked)
             finish()
         }
     }
+
     override fun onStart() {
         super.onStart()
-            binding.internalStorage.isChecked = fileOperations.loadStorageState(applicationContext)
-    }
-    private fun saveStorageState(storageState: Boolean) {
-        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
-        val editor = pref.edit()
-        editor.putBoolean("1", storageState)
-        editor.apply()
-    }
-    companion object {
-        var isInternalStorage: Boolean = true
+        Log.d("HM2", "${fileOperations.loadStorageState()}")
+        with(binding.radioGroup) {
+            if (fileOperations.loadStorageState()) {
+                check(binding.internalStorage.id)
+            } else {
+                check(binding.externalStorage.id)
+            }
+        }
     }
 }

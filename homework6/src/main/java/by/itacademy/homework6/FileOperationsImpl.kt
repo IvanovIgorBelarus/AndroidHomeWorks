@@ -2,12 +2,12 @@ package by.itacademy.homework6
 
 import android.content.Context
 import by.itacademy.homework6.Data.Companion.dataInstance
-import by.itacademy.homework6.SettingsActivity.Companion.isInternalStorage
 import java.io.File
 
-class FileOperationsImpl() : FileOperations {
-    override fun saveFile(context: Context, name: String) {
-        if (isInternalStorage) {
+class FileOperationsImpl(private val context: Context) : FileOperations {
+
+    override fun saveFile(name: String) {
+        if (loadStorageState()) {
             File(context.filesDir, name).createNewFile()
         } else {
             File(context.getExternalFilesDir(context.packageName), name).createNewFile()
@@ -15,15 +15,20 @@ class FileOperationsImpl() : FileOperations {
         dataInstance.fileList.add(name)
     }
 
-    override fun getFiles(context: Context) {
-        if (isInternalStorage) {
+    override fun getFiles() {
+        if (loadStorageState()) {
             context.filesDir.listFiles { file -> dataInstance.fileList.add(file.name) }
         } else {
             context.getExternalFilesDir(context.packageName)?.listFiles { file -> dataInstance.fileList.add(file.name) }
         }
     }
+    override fun saveStorageState(storageState: Boolean) {
+        val pref = context.getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putBoolean("1", storageState)
+        editor.apply()
+    }
 
-    override fun loadStorageState(context: Context)
-    = context.getSharedPreferences("settingStorage", Context.MODE_PRIVATE).getBoolean("1", true)
+    override fun loadStorageState() = context.getSharedPreferences("settingStorage", Context.MODE_PRIVATE).getBoolean("1", true)
 
 }

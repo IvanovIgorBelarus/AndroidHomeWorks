@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.homework6.Data.Companion.dataInstance
-import by.itacademy.homework6.SettingsActivity.Companion.isInternalStorage
 import by.itacademy.homework6.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var fileAdapter: FileAdapter
-    private val fileOperations: FileOperations = FileOperationsImpl()
+    private val fileOperations: FileOperations = FileOperationsImpl(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -36,14 +35,13 @@ class MainActivity : AppCompatActivity(), FileActionListener {
                 startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
             }
         }
-        isInternalStorage = fileOperations.loadStorageState(applicationContext)
         setRecycler(dataInstance.fileList, this)
     }
 
     override fun onStart() {
         super.onStart()
         dataInstance.fileList.clear()
-        fileOperations.getFiles(applicationContext)
+        fileOperations.getFiles()
         fileAdapter.notifyDataSetChanged()
     }
 
@@ -59,7 +57,7 @@ class MainActivity : AppCompatActivity(), FileActionListener {
             setPositiveButton("SAVE") { _: DialogInterface, _: Int ->
                 val name = textInputEditText.text.toString()
                 Toast.makeText(context, String.format("SAVE File  %s", name), Toast.LENGTH_SHORT).show()
-                fileOperations.saveFile(applicationContext, name)
+                fileOperations.saveFile(name)
                 fileAdapter.notifyDataSetChanged()
             }
         }
@@ -101,16 +99,6 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         }
     }
 
-//    private fun saveFile(name: String) {
-//        if (isInternalStorage) {
-//            File(filesDir, name).createNewFile()
-//        } else {
-//            File(getExternalFilesDir(packageName), name).createNewFile()
-//        }
-//        dataInstance.fileList.add(name)
-//        fileAdapter.notifyDataSetChanged()
-//    }
-
     private fun setRecycler(fileList: List<String>, activity: MainActivity) {
         val recycler = binding.recycler
         fileAdapter = FileAdapter(fileList, activity)
@@ -126,8 +114,4 @@ class MainActivity : AppCompatActivity(), FileActionListener {
         startActivity(intent)
     }
 
-//    private fun loadStorageState(): Boolean {
-//        val pref = getSharedPreferences("settingStorage", Context.MODE_PRIVATE)
-//        return pref.getBoolean("1", true)
-//    }
 }
