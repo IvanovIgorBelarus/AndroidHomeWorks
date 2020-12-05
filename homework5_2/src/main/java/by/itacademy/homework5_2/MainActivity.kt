@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.homework5_2.data.Contact
 import by.itacademy.homework5_2.data.DBOperationsImpl
 import by.itacademy.homework5_2.databinding.ActivityMainBinding
-import by.itacademy.homework5_2.multithread.CompletableFutureHelper
 import by.itacademy.homework5_2.multithread.MultiThreadOperations
+import by.itacademy.homework5_2.multithread.RXJavaHelper
 import by.itacademy.homework5_2.multithread.UsersListListener
 
 class MainActivity : AppCompatActivity(), ListItemActionListener, UsersListListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemAdapter: ItemAdapter
-    private val completableFutureHelper: MultiThreadOperations by lazy { CompletableFutureHelper(this) }
+    private val completableFutureHelper: MultiThreadOperations by lazy { RXJavaHelper(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

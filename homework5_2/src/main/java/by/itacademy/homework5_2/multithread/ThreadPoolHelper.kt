@@ -18,7 +18,7 @@ class ThreadPoolHelper(private val context: Context) : MultiThreadOperations {
         })
     }
 
-        override fun getUsersFromDB(usersListListener: UsersListListener) {
+    override fun getUsersFromDB(usersListListener: UsersListListener) {
         executor.submit(Runnable {
             val result = dbOperations.getUsersFromDB()
             handler.post(Runnable { usersListListener.getUsersList(result) })

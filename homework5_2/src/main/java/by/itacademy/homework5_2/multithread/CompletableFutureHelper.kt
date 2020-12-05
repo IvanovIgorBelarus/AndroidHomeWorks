@@ -7,23 +7,37 @@ import by.itacademy.homework5_2.data.DBOperationsImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Supplier
 
-class CompletableFutureHelper(private val context: Context):MultiThreadOperations {
+class CompletableFutureHelper(private val context: Context) : MultiThreadOperations {
     private val dbOperations: DBOperations = DBOperationsImpl(context)
     override fun changeContact(changeContactsListener: ChangeContactsListener, contact: Contact, position: Int) {
-        TODO("Not yet implemented")
+        CompletableFuture.supplyAsync(Supplier {
+            dbOperations.changeContact(contact, position)
+        }, context.mainExecutor).thenAcceptAsync {
+            changeContactsListener.changeContact("${contact.name}")
+        }
     }
 
     override fun getUsersFromDB(usersListListener: UsersListListener) {
-        CompletableFuture.supplyAsync {
+        CompletableFuture.supplyAsync(Supplier {
             dbOperations.getUsersFromDB()
-        }.thenRunAsync(Runnable {  },context.mainExecutor)
+        }, context.mainExecutor).thenAcceptAsync {
+            usersListListener.getUsersList(it)
+        }
     }
 
     override fun removeContact(changeContactsListener: ChangeContactsListener, position: Int) {
-        TODO("Not yet implemented")
+        CompletableFuture.supplyAsync(Supplier {
+            dbOperations.removeContact(position)
+        }, context.mainExecutor).thenAcceptAsync {
+            changeContactsListener.removeContact()
+        }
     }
 
     override fun saveContactInDB(saveContactsListener: SaveContactsListener, contact: Contact) {
-        TODO("Not yet implemented")
+        CompletableFuture.supplyAsync(Supplier {
+            dbOperations.saveContactInDB(contact)
+        }, context.mainExecutor).thenAcceptAsync {
+            saveContactsListener.saveContactInDB("${contact.name}")
+        }
     }
 }
