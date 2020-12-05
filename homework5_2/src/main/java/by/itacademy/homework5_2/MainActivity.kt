@@ -6,12 +6,17 @@ import android.widget.Button
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.homework5_2.data.Contact
+import by.itacademy.homework5_2.data.DBOperationsImpl
 import by.itacademy.homework5_2.databinding.ActivityMainBinding
+import by.itacademy.homework5_2.multithread.CompletableFutureHelper
+import by.itacademy.homework5_2.multithread.MultiThreadOperations
+import by.itacademy.homework5_2.multithread.UsersListListener
 
-class MainActivity : AppCompatActivity(), ListItemActionListener {
+class MainActivity : AppCompatActivity(), ListItemActionListener, UsersListListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var itemAdapter: ItemAdapter
-    private val dbOperations: DBOperations = DBOperationsImpl()
+    private val completableFutureHelper: MultiThreadOperations by lazy { CompletableFutureHelper(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,7 +30,7 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
 
     override fun onResume() {
         super.onResume()
-        itemAdapter.updateItem(dbOperations.getUsersFromDB(applicationContext))
+        completableFutureHelper.getUsersFromDB(this)
     }
 
     private fun buttonClick(button: Button) {
@@ -50,7 +55,8 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val newList = dbOperations.getUsersFromDB(applicationContext).filter { contact -> contact.name.toLowerCase().contains(newText.toString().toLowerCase()) }
+                val newList = DBOperationsImpl(this@MainActivity).getUsersFromDB() //как избавиться от этого костыля??
+                        .filter { contact -> contact.name.toLowerCase().contains(newText.toString().toLowerCase()) }
                 itemAdapter.updateItem(newList)
                 return true
             }
@@ -62,4 +68,9 @@ class MainActivity : AppCompatActivity(), ListItemActionListener {
         intent.putExtra("position", number)
         startActivity(intent)
     }
+
+    override fun getUsersList(list: List<Contact>) {
+        itemAdapter.updateItem(list)
+    }
 }
+

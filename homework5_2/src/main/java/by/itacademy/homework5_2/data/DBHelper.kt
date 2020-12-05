@@ -1,4 +1,4 @@
-package by.itacademy.homework5_2
+package by.itacademy.homework5_2.data
 
 
 import android.content.Context

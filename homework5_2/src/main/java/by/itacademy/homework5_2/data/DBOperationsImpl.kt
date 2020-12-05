@@ -1,39 +1,43 @@
-package by.itacademy.homework5_2
+package by.itacademy.homework5_2.data
 
 import android.content.ContentValues
 import android.content.Context
+import by.itacademy.homework5_2.App
 
-class DBOperationsImpl : DBOperations {
-    override fun saveContactInDB(context: Context, contact: Contact) {
+class DBOperationsImpl(private val context: Context) : DBOperations {
+    override fun saveContactInDB(contact: Contact) {
         val contentValues = ContentValues().apply {
             put("name", contact.name)
             put("isPhone", contact.isPhone)
             put("data", contact.data)
         }
-        (context as App)
+        (context.applicationContext as App)
                 .dbHelper
                 .writableDatabase
                 .insert("contacts", null, contentValues)
     }
-    override fun changeContact(context: Context,contact: Contact, position: Int) {
+
+    override fun changeContact(contact: Contact, position: Int) {
         val contentValue = ContentValues().apply {
             put("name", contact.name)
             put("isPhone", contact.isPhone)
             put("data", contact.data)
         }
-        (context as App)
+        (context.applicationContext as App)
                 .dbHelper
                 .writableDatabase
-                .update("contacts", contentValue, "" + getUsersFromDB(context)[position].id + " =id", null)
+                .update("contacts", contentValue, "" + getUsersFromDB()[position].id + " =id", null)
     }
-    override fun removeContact(context: Context, position: Int) {
-        (context as App)
+
+    override fun removeContact(position: Int) {
+        (context.applicationContext as App)
                 .dbHelper
                 .writableDatabase
-                .delete("contacts", "" + getUsersFromDB(context)[position].id + " =id", null)
+                .delete("contacts", "" + getUsersFromDB()[position].id + " =id", null)
     }
-    override fun getUsersFromDB(context: Context): List<Contact> {
-        val cursor = (context as App)
+
+    override fun getUsersFromDB(): List<Contact> {
+        val cursor = (context.applicationContext as App)
                 .dbHelper
                 .readableDatabase
                 .query("contacts", null, null, null, null, null, null)

@@ -3,6 +3,7 @@ package by.itacademy.homework5_2
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import by.itacademy.homework5_2.data.Contact
 import by.itacademy.homework5_2.databinding.ItemRecyclerviewBinding
 
 class ItemAdapter(private val listItemActionListener: ListItemActionListener) :

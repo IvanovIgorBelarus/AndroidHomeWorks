@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.homework5_2.data.Contact
 import by.itacademy.homework5_2.databinding.ActivityCreateItemBinding
+import by.itacademy.homework5_2.multithread.MultiThreadOperations
+import by.itacademy.homework5_2.multithread.SaveContactsListener
+import by.itacademy.homework5_2.multithread.ThreadPoolHelper
 
-class CreateItemActivity : AppCompatActivity() {
+class CreateItemActivity : AppCompatActivity(), SaveContactsListener {
     private lateinit var binding: ActivityCreateItemBinding
-    private val dbOperations: DBOperations = DBOperationsImpl()
+    private val threadPoolHelper: MultiThreadOperations by lazy { ThreadPoolHelper(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateItemBinding.inflate(layoutInflater)
@@ -19,7 +23,6 @@ class CreateItemActivity : AppCompatActivity() {
 
     private fun addContact(button: Button) {
         button.setOnClickListener {
-
             val nameText = binding.name.text.toString()
             val dataText = binding.numberOrEmail.text.toString()
             val email = binding.addEmail.isChecked
@@ -30,11 +33,15 @@ class CreateItemActivity : AppCompatActivity() {
                     data = dataText
                 }
                 if (email) contact.isPhone = 0
-                dbOperations.saveContactInDB(applicationContext, contact)
+                threadPoolHelper.saveContactInDB(this, contact)
                 finish()
             } else {
                 Toast.makeText(this, "Add info!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun saveContactInDB(result: String) {
+        Toast.makeText(this, "save new contact $result", Toast.LENGTH_SHORT).show()
     }
 }
