@@ -13,7 +13,7 @@ class CompletableFutureHelper(private val context: Context) : MultiThreadOperati
         CompletableFuture.supplyAsync(Supplier {
             dbOperations.changeContact(contact, position)
         }, context.mainExecutor).thenAcceptAsync {
-            changeContactsListener.changeContact("${contact.name}")
+            changeContactsListener.changeContact(contact.name)
         }
     }
 
@@ -37,7 +37,7 @@ class CompletableFutureHelper(private val context: Context) : MultiThreadOperati
         CompletableFuture.supplyAsync(Supplier {
             dbOperations.saveContactInDB(contact)
         }, context.mainExecutor).thenAcceptAsync {
-            saveContactsListener.saveContactInDB("${contact.name}")
+            saveContactsListener.saveContactInDB(contact.name)
         }
     }
 }

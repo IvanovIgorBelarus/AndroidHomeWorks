@@ -12,7 +12,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class RXJavaHelper(context: Context) : MultiThreadOperations {
     private val dbOperations: DBOperations = DBOperationsImpl(context)
     override fun changeContact(changeContactsListener: ChangeContactsListener, contact: Contact, position: Int) {
-
+        Observable.just( dbOperations.changeContact(contact,position) )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { changeContactsListener.changeContact(contact.name) }
     }
 
     override fun getUsersFromDB(usersListListener: UsersListListener) {
@@ -24,11 +27,17 @@ class RXJavaHelper(context: Context) : MultiThreadOperations {
     }
 
     override fun removeContact(changeContactsListener: ChangeContactsListener, position: Int) {
-        TODO("Not yet implemented")
+        Observable.just( dbOperations.removeContact(position) )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {  changeContactsListener.removeContact() }
     }
 
     override fun saveContactInDB(saveContactsListener: SaveContactsListener, contact: Contact) {
-        TODO("Not yet implemented")
+        Observable.just( dbOperations.saveContactInDB(contact) )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {   saveContactsListener.saveContactInDB(contact.name) }
     }
 
 }

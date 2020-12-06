@@ -6,14 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import by.itacademy.homework5_2.data.Contact
 import by.itacademy.homework5_2.databinding.ActivityCreateItemBinding
-import by.itacademy.homework5_2.multithread.CompletableFutureHelper
-import by.itacademy.homework5_2.multithread.MultiThreadOperations
 import by.itacademy.homework5_2.multithread.SaveContactsListener
-import by.itacademy.homework5_2.multithread.ThreadPoolHelper
+import by.itacademy.homework5_2.multithread.MultiThreadFactory
+import by.itacademy.homework5_2.multithread.MultiThreadOperations
+import by.itacademy.homework5_2.multithread.RXJAVA_HELPER
 
 class CreateItemActivity : AppCompatActivity(), SaveContactsListener {
     private lateinit var binding: ActivityCreateItemBinding
-    private val completableFutureHelper: MultiThreadOperations by lazy { CompletableFutureHelper(this) }
+    private val threadHelper: MultiThreadOperations by lazy { MultiThreadFactory().createHelper(this, RXJAVA_HELPER) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateItemBinding.inflate(layoutInflater)
@@ -34,7 +34,7 @@ class CreateItemActivity : AppCompatActivity(), SaveContactsListener {
                     data = dataText
                 }
                 if (email) contact.isPhone = 0
-                completableFutureHelper.saveContactInDB(this, contact)
+                threadHelper.saveContactInDB(this, contact)
                 finish()
             } else {
                 Toast.makeText(this, "Add info!", Toast.LENGTH_SHORT).show()

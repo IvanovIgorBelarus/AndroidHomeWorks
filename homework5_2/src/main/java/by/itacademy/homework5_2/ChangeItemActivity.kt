@@ -8,13 +8,13 @@ import by.itacademy.homework5_2.data.Contact
 import by.itacademy.homework5_2.data.DBOperationsImpl
 import by.itacademy.homework5_2.databinding.ActivityChangeItemBinding
 import by.itacademy.homework5_2.multithread.ChangeContactsListener
-import by.itacademy.homework5_2.multithread.CompletableFutureHelper
+import by.itacademy.homework5_2.multithread.MultiThreadFactory
 import by.itacademy.homework5_2.multithread.MultiThreadOperations
-import by.itacademy.homework5_2.multithread.ThreadPoolHelper
+import by.itacademy.homework5_2.multithread.RXJAVA_HELPER
 
 class ChangeItemActivity : AppCompatActivity(), ChangeContactsListener {
     private lateinit var binding: ActivityChangeItemBinding
-    private val completableFutureHelper: MultiThreadOperations by lazy { CompletableFutureHelper(this) }
+    private val threadHelper: MultiThreadOperations by lazy { MultiThreadFactory().createHelper(this, RXJAVA_HELPER) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityChangeItemBinding.inflate(layoutInflater)
@@ -36,14 +36,14 @@ class ChangeItemActivity : AppCompatActivity(), ChangeContactsListener {
                 data = binding.info.text.toString()
                 isPhone = contact.isPhone
             }
-            completableFutureHelper.changeContact(this, newContact, position)
+            threadHelper.changeContact(this, newContact, position)
             finish()
         }
     }
 
     private fun removeContact(position: Int) {
         binding.remove.setOnClickListener {
-            completableFutureHelper.removeContact(this, position)
+            threadHelper.removeContact(this, position)
             finish()
         }
     }
