@@ -17,7 +17,7 @@ class RXJavaHelper(context: Context) : MultiThreadOperations {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { changeContactsListener.changeContact(contact.name) }
     }
-
+    
     override fun getUsersFromDB(usersListListener: UsersListListener) {
         Observable.just( dbOperations.getUsersFromDB() )
                 .subscribeOn(Schedulers.io())
