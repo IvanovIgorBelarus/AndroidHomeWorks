@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.homework9.data.HourlyWeather
+import by.itacademy.homework9.data.HourlyWeatherModel
 import by.itacademy.homework9.data.Weather
 import by.itacademy.homework9.databinding.ActivityMainBinding
 import by.itacademy.homework9.presentation.HourlyWeatherAdapter
@@ -31,13 +31,11 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
         }
     }
 
-    override fun getHourlyWeather(hourlyWeather: HourlyWeather) {
-        // Log.d("HM9", "$hourlyWeather")
-        weatherAdapter.update(hourlyWeather.hourly)
+    override fun getHourlyWeather(hourlyWeatherModel: List<HourlyWeatherModel>) {
+        weatherAdapter.update(hourlyWeatherModel)
     }
 
     override fun getMainWeather(weather: Weather) {
-        // Log.d("HM9", "$weather")
         with(binding) {
             city.text = weather.name
             degree.text = "${weather.main.temp.roundToInt()}"

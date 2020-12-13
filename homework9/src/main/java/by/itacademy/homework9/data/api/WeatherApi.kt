@@ -13,8 +13,7 @@ interface WeatherApi {
     fun getWeather(
             @Query("q") id: String,
             @Query("appid") api_key: String = API_KEY,
-            @Query("units") units: String = "metric",
-            @Query("lang") language: String = "ru"
+            @Query("units") units: String = "metric"
     ): Call<Weather>
 
     @GET("onecall")
@@ -23,7 +22,6 @@ interface WeatherApi {
             @Query("lon") lon: Double = 27.0,
             @Query("units") units: String = "metric",
             @Query("exclude") exclude: String = "alerts",
-            @Query("lang") language: String = "ru",
             @Query("appid") api_key: String = API_KEY
     ): Call<HourlyWeather>
 }

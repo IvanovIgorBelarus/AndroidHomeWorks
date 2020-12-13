@@ -5,7 +5,7 @@ import by.itacademy.homework9.data.Weather
 import by.itacademy.homework9.data.api.WeatherRepository
 
 class MainActivityPresenterImpl(private val mainActivityListener: MainActivityListener) : MainActivityPresenter {
-
+    private val hourlyWeatherModelMapper = HourlyWeatherModelMapper()
     override fun getMainWeather() {
         WeatherRepository.getWeather(
                 id = "Minsk",
@@ -22,7 +22,7 @@ class MainActivityPresenterImpl(private val mainActivityListener: MainActivityLi
     }
 
     private fun getHourlyWeather(hourlyWeather: HourlyWeather) {
-        mainActivityListener.getHourlyWeather(hourlyWeather)
+        mainActivityListener.getHourlyWeather(hourlyWeatherModelMapper.invoke(hourlyWeather.hourly))
     }
 
     private fun getMainWeather(weather: Weather) {

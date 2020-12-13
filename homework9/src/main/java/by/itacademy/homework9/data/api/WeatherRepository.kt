@@ -63,7 +63,7 @@ object WeatherRepository {
                     }
 
                     override fun onFailure(call: Call<HourlyWeather>, t: Throwable) {
-                        Log.d("HM9","$t")
+                        Log.d("HM9", "$t")
                         onError.invoke()
                     }
                 })
