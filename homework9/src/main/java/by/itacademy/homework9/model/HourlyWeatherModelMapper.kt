@@ -1,7 +1,6 @@
-package by.itacademy.homework9.presentation
+package by.itacademy.homework9.model
 
 import by.itacademy.homework9.data.Hourly
-import by.itacademy.homework9.data.HourlyWeatherModel
 import kotlin.math.roundToInt
 
 class HourlyWeatherModelMapper : (List<Hourly>) -> List<HourlyWeatherModel> {

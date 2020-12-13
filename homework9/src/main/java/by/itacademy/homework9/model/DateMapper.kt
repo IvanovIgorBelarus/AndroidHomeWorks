@@ -1,4 +1,4 @@
-package by.itacademy.homework9.presentation
+package by.itacademy.homework9.model
 
 import java.time.Instant
 import java.time.ZoneId

@@ -1,4 +1,4 @@
-package by.itacademy.homework9.data
+package by.itacademy.homework9.model
 
 class HourlyWeatherModel(
         val temp: String,

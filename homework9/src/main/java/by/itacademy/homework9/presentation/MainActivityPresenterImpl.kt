@@ -3,9 +3,12 @@ package by.itacademy.homework9.presentation
 import by.itacademy.homework9.data.HourlyWeather
 import by.itacademy.homework9.data.Weather
 import by.itacademy.homework9.data.api.WeatherRepository
+import by.itacademy.homework9.model.HourlyWeatherModelMapper
+import by.itacademy.homework9.model.WeatherModelMapper
 
 class MainActivityPresenterImpl(private val mainActivityListener: MainActivityListener) : MainActivityPresenter {
     private val hourlyWeatherModelMapper = HourlyWeatherModelMapper()
+    private val weatherModelMapper=WeatherModelMapper()
     override fun getMainWeather() {
         WeatherRepository.getWeather(
                 id = "Minsk",
@@ -26,7 +29,7 @@ class MainActivityPresenterImpl(private val mainActivityListener: MainActivityLi
     }
 
     private fun getMainWeather(weather: Weather) {
-        mainActivityListener.getMainWeather(weather)
+        mainActivityListener.getMainWeather(weatherModelMapper.invoke(weather))
     }
 
     private fun onError() {

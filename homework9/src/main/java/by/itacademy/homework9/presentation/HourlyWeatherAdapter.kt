@@ -3,7 +3,7 @@ package by.itacademy.homework9.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import by.itacademy.homework9.data.HourlyWeatherModel
+import by.itacademy.homework9.model.HourlyWeatherModel
 import by.itacademy.homework9.databinding.WeatherRecyclerBinding
 
 class HourlyWeatherAdapter : RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherHolder>() {

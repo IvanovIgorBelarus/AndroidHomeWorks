@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.homework9.data.HourlyWeatherModel
+import by.itacademy.homework9.model.HourlyWeatherModel
 import by.itacademy.homework9.data.Weather
 import by.itacademy.homework9.databinding.ActivityMainBinding
+import by.itacademy.homework9.model.WeatherModel
 import by.itacademy.homework9.presentation.HourlyWeatherAdapter
 import by.itacademy.homework9.presentation.MainActivityListener
 import by.itacademy.homework9.presentation.MainActivityPresenter
@@ -35,11 +36,11 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
         weatherAdapter.update(hourlyWeatherModel)
     }
 
-    override fun getMainWeather(weather: Weather) {
+    override fun getMainWeather(weatherModel: WeatherModel) {
         with(binding) {
-            city.text = weather.name
-            degree.text = "${weather.main.temp.roundToInt()}"
-            description.text = weather.weather[0].description
+            city.text = weatherModel.cityName
+            degree.text = weatherModel.temp
+            description.text = weatherModel.description
         }
     }
 
