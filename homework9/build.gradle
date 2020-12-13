@@ -9,12 +9,15 @@ android {
 
     defaultConfig {
         applicationId "by.itacademy.homework9"
-        minSdkVersion 19
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    viewBinding{
+        enabled=true
     }
 
     buildTypes {
