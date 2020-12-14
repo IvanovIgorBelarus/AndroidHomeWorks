@@ -10,5 +10,5 @@ data class Current(
         val sunset: Int,
         val temp: Double,
         val visibility: Int,
-        val wind_speed: Int
+        val wind_speed: Double
 )

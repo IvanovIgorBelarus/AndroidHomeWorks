@@ -13,14 +13,14 @@ interface WeatherApi {
     fun getWeather(
             @Query("q") id: String,
             @Query("appid") api_key: String = API_KEY,
-            @Query("units") units: String = "metric"
+            @Query("units") degree: String
     ): Call<Weather>
 
     @GET("onecall")
     fun getHourlyWeather(
             @Query("lat") lat: Double = 53.9,
             @Query("lon") lon: Double = 27.0,
-            @Query("units") units: String = "metric",
+            @Query("units") degree: String,
             @Query("exclude") exclude: String = "alerts",
             @Query("appid") api_key: String = API_KEY
     ): Call<HourlyWeather>

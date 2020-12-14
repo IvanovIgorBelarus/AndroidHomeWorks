@@ -17,7 +17,7 @@ class HourlyWeatherAdapter : RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWea
 
     override fun getItemCount(): Int = hourlyWeather.size
     fun update(list: List<HourlyWeatherModel>) {
-        hourlyWeather.addAll(list)
+        hourlyWeather=list.toMutableList()
         notifyDataSetChanged()
     }
 

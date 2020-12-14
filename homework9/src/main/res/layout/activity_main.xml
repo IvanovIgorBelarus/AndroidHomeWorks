@@ -11,8 +11,8 @@
         android:id="@+id/correctWeather"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,7 +27,7 @@
             android:id="@+id/degree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="26sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/description"

@@ -22,10 +22,11 @@ object WeatherRepository {
 
     fun getWeather(
             id: String,
+            degree:String,
             onSuccess: (weather: Weather) -> Unit,
             onError: () -> Unit
     ) {
-        weatherApi.getWeather(id = id)
+        weatherApi.getWeather(id=id, degree=degree)
                 .enqueue(object : Callback<Weather> {
                     override fun onResponse(call: Call<Weather>, response: Response<Weather>) {
                         if (response.isSuccessful) {
@@ -46,10 +47,11 @@ object WeatherRepository {
     }
 
     fun getHourlyWeather(
+            degree: String,
             onSuccess: (weather: HourlyWeather) -> Unit,
             onError: () -> Unit
     ) {
-        weatherApi.getHourlyWeather()
+        weatherApi.getHourlyWeather(degree = degree)
                 .enqueue(object : Callback<HourlyWeather> {
                     override fun onResponse(call: Call<HourlyWeather>, response: Response<HourlyWeather>) {
                         if (response.isSuccessful) {
