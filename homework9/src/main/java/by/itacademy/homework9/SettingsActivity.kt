@@ -15,7 +15,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
         with(binding) {
             degree.apply {
-                isChecked = degreeListener.loadLanguage() == "metric"
+                isChecked = degreeListener.loadDegree() == "metric"
                 if (isChecked) {
                     setText(R.string.celsius)
                 } else {

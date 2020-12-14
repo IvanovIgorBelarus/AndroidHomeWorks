@@ -50,6 +50,7 @@
         android:src="@drawable/ic_baseline_settings_24"
         app:layout_constraintBottom_toTopOf="@id/cityButton"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cityButton"
         android:layout_width="wrap_content"

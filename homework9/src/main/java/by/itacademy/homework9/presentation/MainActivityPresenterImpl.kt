@@ -11,10 +11,11 @@ class MainActivityPresenterImpl(private val mainActivityListener: MainActivityLi
     private val hourlyWeatherModelMapper = HourlyWeatherModelMapper()
     private val weatherModelMapper=WeatherModelMapper()
     private val degreeListener:DegreeListener=DegreeListenerImpl(context)
+    private val cityListener: CityListener=CityListenerImpl(context)
     override fun getMainWeather() {
         WeatherRepository.getWeather(
-                id = "Minsk",
-                degree = degreeListener.loadLanguage(),
+                id = cityListener.loadCity(),
+                degree = degreeListener.loadDegree(),
                 onSuccess = ::getMainWeather,
                 onError = ::onError
         )
@@ -22,7 +23,7 @@ class MainActivityPresenterImpl(private val mainActivityListener: MainActivityLi
 
     override fun getWeatherForAdapter() {
         WeatherRepository.getHourlyWeather(
-                degree = degreeListener.loadLanguage(),
+                degree = degreeListener.loadDegree(),
                 onSuccess = ::getHourlyWeather,
                 onError = ::onError
         )

@@ -2,11 +2,9 @@ package by.itacademy.homework9
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import by.itacademy.homework9.databinding.ActivityMainBinding
 import by.itacademy.homework9.model.HourlyWeatherModel
 import by.itacademy.homework9.model.WeatherModel
@@ -14,11 +12,10 @@ import by.itacademy.homework9.presentation.HourlyWeatherAdapter
 import by.itacademy.homework9.presentation.MainActivityListener
 import by.itacademy.homework9.presentation.MainActivityPresenter
 import by.itacademy.homework9.presentation.MainActivityPresenterImpl
-import com.bumptech.glide.Glide
 
 class MainActivity : AppCompatActivity(), MainActivityListener {
     private lateinit var binding: ActivityMainBinding
-    private val mainActivityPresenter: MainActivityPresenter by lazy { MainActivityPresenterImpl(this, baseContext)}
+    private val mainActivityPresenter: MainActivityPresenter by lazy { MainActivityPresenterImpl(this, baseContext) }
     private val weatherAdapter by lazy { HourlyWeatherAdapter() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +27,8 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
                 layoutManager = LinearLayoutManager(this@MainActivity)
                 adapter = weatherAdapter
             }
-            settingsButton.setOnClickListener { startActivity(Intent(this@MainActivity,SettingsActivity::class.java)) }
+            settingsButton.setOnClickListener { startActivity(Intent(this@MainActivity, SettingsActivity::class.java)) }
+            cityButton.setOnClickListener { startActivity(Intent(this@MainActivity, CityActivity::class.java)) }
         }
     }
 
