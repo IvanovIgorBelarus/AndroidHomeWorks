@@ -24,16 +24,13 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        with(mainActivityPresenter) {
-//            getMainWeather()
-//            getWeatherForAdapter()
-//        }
+
         with(binding) {
             recycler.apply {
-                layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(this@MainActivity)
                 adapter = weatherAdapter
             }
-            floatButton.setOnClickListener { startActivity(Intent(this@MainActivity,SettingsActivity::class.java)) }
+            settingsButton.setOnClickListener { startActivity(Intent(this@MainActivity,SettingsActivity::class.java)) }
         }
     }
 
