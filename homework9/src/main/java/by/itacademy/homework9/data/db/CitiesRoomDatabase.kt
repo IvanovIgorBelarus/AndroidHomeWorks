@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [City::class], version = 1, exportSchema = false)
 abstract class CitiesRoomDatabase : RoomDatabase() {
-    abstract fun cityDao(): CityDao
+    abstract fun getCityDao(): CityDao
     companion object {
         @Volatile
         private var INSTANCE: CitiesRoomDatabase? = null
