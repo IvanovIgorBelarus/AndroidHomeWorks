@@ -9,6 +9,7 @@ class HourlyWeatherModelMapper : (List<Hourly>) -> List<HourlyWeatherModel> {
                 temp = item.temp.roundToInt().toString(),
                 wind_speed = String.format("wind %s m/s", item.wind_speed.roundToInt()),
                 time = DateMapper.getTime(item.dt)
+
         )
     }
 }

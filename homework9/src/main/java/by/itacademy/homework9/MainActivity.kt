@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
     override fun onStart() {
         super.onStart()
         with(mainActivityPresenter) {
-            getMainWeather()
-            getWeatherForAdapter()
+            getMainWeatherFromApi()
+            getWeatherForAdapterFromApi()
         }
     }
 

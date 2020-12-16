@@ -16,6 +16,7 @@ class CityActivity : AppCompatActivity() {
         binding = ActivityCityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         with(binding) {
+        //    text.text= CitiesRoomDatabase.getDatabase(this@CityActivity).cityDao().allCities.toString()
             newCityButton.setOnClickListener {
                 startDialog()
             }
