@@ -36,7 +36,6 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
         super.onStart()
         with(mainActivityPresenter) {
             getMainWeatherFromApi()
-            //getWeatherForAdapterFromApi()
         }
     }
 

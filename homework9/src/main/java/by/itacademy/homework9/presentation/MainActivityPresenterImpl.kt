@@ -1,7 +1,6 @@
 package by.itacademy.homework9.presentation
 
 import android.content.Context
-import android.util.Log
 import by.itacademy.homework9.data.HourlyWeather
 import by.itacademy.homework9.data.Weather
 import by.itacademy.homework9.data.api.WeatherRepository
