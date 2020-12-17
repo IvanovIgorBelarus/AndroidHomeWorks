@@ -5,6 +5,7 @@ import by.itacademy.homework9.data.HourlyWeather
 import by.itacademy.homework9.data.Weather
 import by.itacademy.homework9.data.api.WeatherRepository
 import by.itacademy.homework9.data.db.CitiesRoomDatabase
+import by.itacademy.homework9.data.db.CityDao
 import by.itacademy.homework9.model.CityModelMapper
 import by.itacademy.homework9.model.HourlyWeatherModelMapper
 import by.itacademy.homework9.model.WeatherModelMapper
@@ -18,10 +19,9 @@ class MainActivityPresenterImpl(
         private val weatherModelMapper: WeatherModelMapper = WeatherModelMapper(),
         private val degreeListener: DegreeListener = DegreeListenerImpl(context),
         private val cityModelMapper: CityModelMapper = CityModelMapper(),
-        private val cityListener: CityListener = CityListenerImpl(context)
-) : MainActivityPresenter {
-    private val citiesRoomDatabase = CitiesRoomDatabase.getDatabase(context)
-    private val cityDao = citiesRoomDatabase.getCityDao()
+        private val cityListener: CityListener = CityListenerImpl(context),
+        private val cityDao:CityDao = CitiesRoomDatabase.getDatabase(context).getCityDao()
+) : MainActivityPresenter {    
 
     override fun getMainWeatherFromApi() {
         WeatherRepository.getWeather(
