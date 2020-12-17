@@ -34,9 +34,7 @@ class MainActivity : AppCompatActivity(), MainActivityListener {
 
     override fun onStart() {
         super.onStart()
-        with(mainActivityPresenter) {
-            getMainWeatherFromApi()
-        }
+        mainActivityPresenter.getMainWeatherFromApi()
     }
 
     override fun getHourlyWeather(hourlyWeatherModel: List<HourlyWeatherModel>) {

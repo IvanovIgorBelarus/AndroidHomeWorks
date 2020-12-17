@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 class MainActivityPresenterImpl(
         private val mainActivityListener: MainActivityListener,
         context: Context,
-        private val hourlyWeatherModelMapper: HourlyWeatherModelMapper = HourlyWeatherModelMapper(),
+        private val hourlyWeatherModelMapper: HourlyWeatherModelMapper = HourlyWeatherModelMapper(context),
         private val weatherModelMapper: WeatherModelMapper = WeatherModelMapper(),
         private val degreeListener: DegreeListener = DegreeListenerImpl(context),
         private val cityModelMapper: CityModelMapper = CityModelMapper(),
