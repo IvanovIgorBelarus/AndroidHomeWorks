@@ -48,10 +48,12 @@ object WeatherRepository {
 
     fun getHourlyWeather(
             degree: String,
+            lat:String,
+            lon: String,
             onSuccess: (weather: HourlyWeather) -> Unit,
             onError: () -> Unit
     ) {
-        weatherApi.getHourlyWeather(degree = degree)
+        weatherApi.getHourlyWeather(degree = degree, lat=lat, lon = lon)
                 .enqueue(object : Callback<HourlyWeather> {
                     override fun onResponse(call: Call<HourlyWeather>, response: Response<HourlyWeather>) {
                         if (response.isSuccessful) {

@@ -10,6 +10,6 @@ class CityListenerImpl(private val context: Context) : CityListener {
         pref.edit().putString(CITY, city).apply()
     }
 
-    override fun loadCity() = context.getSharedPreferences(CITY, Context.MODE_PRIVATE).getString(CITY, "Minsk")
-            ?: ""
+    override fun loadCity()
+    = context.getSharedPreferences(CITY, Context.MODE_PRIVATE).getString(CITY, "Minsk")?: ""
 }

@@ -10,14 +10,14 @@ class HourlyWeatherAdapter(
         private var hourlyWeather: MutableList<HourlyWeatherModel> = mutableListOf()
 ) : RecyclerView.Adapter<HourlyWeatherAdapter.HourlyWeatherHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HourlyWeatherHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             HourlyWeatherHolder(WeatherRecyclerBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: HourlyWeatherHolder, position: Int) {
         holder.bind(hourlyWeather[position])
     }
 
-    override fun getItemCount(): Int = hourlyWeather.size
+    override fun getItemCount() = hourlyWeather.size
 
     fun update(list: List<HourlyWeatherModel>) {
         hourlyWeather = list.toMutableList()
