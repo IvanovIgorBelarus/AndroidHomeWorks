@@ -4,24 +4,20 @@ import android.content.Context
 import by.itacademy.homework9.data.HourlyWeather
 import by.itacademy.homework9.data.Weather
 import by.itacademy.homework9.data.api.WeatherRepository
-import by.itacademy.homework9.data.db.CitiesRoomDatabase
-import by.itacademy.homework9.data.db.CityDao
-import by.itacademy.homework9.model.CityModelMapper
+import by.itacademy.homework9.data.db.CityRepository
+import by.itacademy.homework9.data.db.CityRepositoryImpl
 import by.itacademy.homework9.model.HourlyWeatherModelMapper
 import by.itacademy.homework9.model.WeatherModelMapper
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
 
 class MainActivityPresenterImpl(
         private val mainActivityListener: MainActivityListener,
         context: Context,
         private val hourlyWeatherModelMapper: HourlyWeatherModelMapper = HourlyWeatherModelMapper(context),
         private val weatherModelMapper: WeatherModelMapper = WeatherModelMapper(),
-        private val degreeListener: DegreeListener = DegreeListenerImpl(context),
-        private val cityModelMapper: CityModelMapper = CityModelMapper(),
-        private val cityListener: CityListener = CityListenerImpl(context),
-        private val cityDao:CityDao = CitiesRoomDatabase.getDatabase(context).getCityDao()
-) : MainActivityPresenter {    
+        private val degreeListener: DegreeListener = DegreeListenerImpl(context.getSharedPreferences(DEGREE, Context.MODE_PRIVATE)),
+        private val cityRepository: CityRepository = CityRepositoryImpl(context),
+        private val cityListener: CityListener = CityListenerImpl(context.getSharedPreferences(CITY, Context.MODE_PRIVATE))
+) : MainActivityPresenter {
 
     override fun getMainWeatherFromApi() {
         WeatherRepository.getWeather(
@@ -47,9 +43,7 @@ class MainActivityPresenterImpl(
     }
 
     private fun getMainWeather(weather: Weather) {
-        Observable.just(cityDao)
-                .subscribeOn(Schedulers.io())
-                .subscribe { it.insert(cityModelMapper.invoke(weather)) }
+        cityRepository.insertCityInDb(weather)
         mainActivityListener.getMainWeather(weatherModelMapper.invoke(weather))
         getWeatherForAdapterFromApi(weather.coord.lat.toString(), weather.coord.lon.toString())
     }

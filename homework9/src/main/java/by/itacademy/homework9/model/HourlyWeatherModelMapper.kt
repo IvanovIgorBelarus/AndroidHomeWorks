@@ -2,6 +2,7 @@ package by.itacademy.homework9.model
 
 import android.content.Context
 import by.itacademy.homework9.data.Hourly
+import by.itacademy.homework9.presentation.DEGREE
 import by.itacademy.homework9.presentation.DegreeListener
 import by.itacademy.homework9.presentation.DegreeListenerImpl
 import kotlin.math.roundToInt
@@ -16,7 +17,7 @@ class HourlyWeatherModelMapper(private val context: Context) : (List<Hourly>) ->
         )
     }
     private fun getMetric():String{
-        val degreeListener:DegreeListener=DegreeListenerImpl(context)
+        val degreeListener:DegreeListener=DegreeListenerImpl(context.getSharedPreferences(DEGREE, Context.MODE_PRIVATE))
         if (degreeListener.loadDegree()!="metric"){
             return "m/h"
         }

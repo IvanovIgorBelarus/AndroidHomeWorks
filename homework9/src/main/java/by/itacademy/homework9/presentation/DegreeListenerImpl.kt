@@ -1,12 +1,11 @@
 package by.itacademy.homework9.presentation
 
-import android.content.Context
+import android.content.SharedPreferences
 
 const val DEGREE = "degree"
 
-class DegreeListenerImpl(private val context: Context) : DegreeListener {
+class DegreeListenerImpl(private val pref: SharedPreferences) : DegreeListener {
     override fun saveSettings(isMetric: Boolean) {
-        val pref = context.getSharedPreferences(DEGREE, Context.MODE_PRIVATE)
         with(pref.edit()) {
             if (isMetric) {
                 putString(DEGREE, "metric")
@@ -16,7 +15,5 @@ class DegreeListenerImpl(private val context: Context) : DegreeListener {
         }.apply()
     }
 
-    override fun loadDegree() =
-            context.getSharedPreferences(DEGREE, Context.MODE_PRIVATE)
-                    .getString(DEGREE, "metric") ?: ""
+    override fun loadDegree() = pref.getString(DEGREE, "metric") ?: ""
 }

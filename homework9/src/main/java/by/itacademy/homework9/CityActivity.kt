@@ -1,21 +1,21 @@
 package by.itacademy.homework9
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.itacademy.homework9.data.db.CitiesRoomDatabase
 import by.itacademy.homework9.databinding.ActivityCityBinding
-import by.itacademy.homework9.presentation.*
-import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
+import by.itacademy.homework9.presentation.CityActivityPresenter
+import by.itacademy.homework9.presentation.CityActivityPresenterImpl
+import by.itacademy.homework9.presentation.CityAdapter
+import by.itacademy.homework9.presentation.CityOnClickListener
 
 class CityActivity : AppCompatActivity(), CityOnClickListener {
     private lateinit var binding: ActivityCityBinding
-    private val cityListener: CityListener by lazy { CityListenerImpl(baseContext) }
     private val cityAdapter by lazy { CityAdapter(this) }
+    private val cityPresenter: CityActivityPresenter by lazy { CityActivityPresenterImpl(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCityBinding.inflate(layoutInflater)
@@ -32,14 +32,9 @@ class CityActivity : AppCompatActivity(), CityOnClickListener {
         }
     }
 
-    @SuppressLint("CheckResult")
     override fun onStart() {
         super.onStart()
-        CitiesRoomDatabase.getDatabase(this@CityActivity)
-                .getCityDao()
-                .getCities()
-                .observeOn(mainThread())
-                .subscribe { cityAdapter.update(it) }
+        cityPresenter.updateAdapter(cityAdapter)
     }
 
     private fun startDialog() {
@@ -51,7 +46,7 @@ class CityActivity : AppCompatActivity(), CityOnClickListener {
             setPositiveButton("Ok") { dialog, which ->
                 this.run {
                     if (input.text.isNotEmpty()) {
-                        cityListener.saveCity(input.text.toString())
+                        cityPresenter.setCity(input.text.toString())
                         finish()
                     } else {
                         Toast.makeText(this@CityActivity, "Add city name!!!", Toast.LENGTH_SHORT).show()
@@ -63,7 +58,7 @@ class CityActivity : AppCompatActivity(), CityOnClickListener {
     }
 
     override fun onClick(name: String) {
-        cityListener.saveCity(name)
+        cityPresenter.setCity(name)
         finish()
     }
 }

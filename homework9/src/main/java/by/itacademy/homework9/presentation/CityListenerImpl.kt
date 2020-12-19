@@ -1,15 +1,13 @@
 package by.itacademy.homework9.presentation
 
-import android.content.Context
+import android.content.SharedPreferences
 
 const val CITY = "CITY"
 
-class CityListenerImpl(private val context: Context) : CityListener {
+class CityListenerImpl(private val pref: SharedPreferences) : CityListener {
     override fun saveCity(city: String) {
-        val pref = context.getSharedPreferences(CITY, Context.MODE_PRIVATE)
         pref.edit().putString(CITY, city).apply()
     }
 
-    override fun loadCity()
-    = context.getSharedPreferences(CITY, Context.MODE_PRIVATE).getString(CITY, "Minsk")?: ""
+    override fun loadCity() = pref.getString(CITY, "Minsk") ?: ""
 }
