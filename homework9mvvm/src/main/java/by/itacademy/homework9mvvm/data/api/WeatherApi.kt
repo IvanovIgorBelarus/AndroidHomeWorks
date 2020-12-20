@@ -1,0 +1,27 @@
+package by.itacademy.homework9mvvm.data.api
+
+import by.itacademy.homework9mvvm.data.HourlyWeather
+import by.itacademy.homework9mvvm.data.Weather
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+private const val API_KEY = "91fca9855dff1b903251cda79b7674dc"
+
+interface WeatherApi {
+    @GET("weather")
+    fun getWeather(
+            @Query("q") id: String,
+            @Query("appid") api_key: String = API_KEY,
+            @Query("units") degree: String
+    ): Call<Weather>
+
+    @GET("onecall")
+    fun getHourlyWeather(
+            @Query("lat") lat: String,
+            @Query("lon") lon: String,
+            @Query("units") degree: String,
+            @Query("exclude") exclude: String = "alerts",
+            @Query("appid") api_key: String = API_KEY
+    ): Call<HourlyWeather>
+}
