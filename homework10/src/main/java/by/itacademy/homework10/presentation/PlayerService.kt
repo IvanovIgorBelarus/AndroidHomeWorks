@@ -19,6 +19,7 @@ private const val CHANNEL_ID = "My channel"
 class PlayerService : Service(), ServiceActions {
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var playList: Map<Long, String>
+    private lateinit var musicListener: MusicListener
     private val uriMapper = UriModelMapper()
     private var i = 0
 
@@ -27,17 +28,20 @@ class PlayerService : Service(), ServiceActions {
         playList = MyContentResolver.getAllMusic(applicationContext)
         createPlayer()
         createNotification(playList.values.first())
-        Log.d(TAG, "onStartCommand")
         return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent?): IBinder = PlayerBinder()
     inner class PlayerBinder : Binder() {
-        fun getPlayerActions(): ServiceActions = this@PlayerService
+        fun getPlayerActions(listener: MusicListener): ServiceActions {
+            musicListener = listener
+            return this@PlayerService
+        }
 
     }
 
     override fun startMusic() {
+        musicListener.onSongChange(i)
         mediaPlayer.start()
     }
 
@@ -51,6 +55,7 @@ class PlayerService : Service(), ServiceActions {
 
     override fun playChosenSong(id: Int) {
         i = id
+        musicListener.onSongChange(i)
         val uri = uriMapper.invoke(playList)[i].uri
         createNotification(uriMapper.invoke(playList)[i].title)
         with(mediaPlayer) {
@@ -71,12 +76,7 @@ class PlayerService : Service(), ServiceActions {
                 if (i < playList.size - 1) {
                     i++
                     Log.d(TAG, "i=$i")
-                    val uri = uriMapper.invoke(playList)[i].uri
-                    with(mp) {
-                        setDataSource(this@PlayerService.applicationContext, uri)
-                        prepare()
-                        start()
-                    }
+                    playChosenSong(i)
                 } else {
                     createNotification("playlist ended")
                     i = -1
@@ -93,6 +93,5 @@ class PlayerService : Service(), ServiceActions {
                 .build()
         val notificationManager = NotificationManagerCompat.from(applicationContext)
         notificationManager.notify(NOTIFY_ID, notification)
-        Log.d(TAG, "createNotification")
     }
 }

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MusicListener {
     private var player: ServiceActions? = null
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            player = (service as PlayerService.PlayerBinder).getPlayerActions()
+            player = (service as PlayerService.PlayerBinder).getPlayerActions(this@MainActivity)
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity(), MusicListener {
                 serviceConnection,
                 0
         )
-        Log.d(TAG,"main onCreate")
     }
 
     override fun onResume() {
@@ -63,13 +62,12 @@ class MainActivity : AppCompatActivity(), MusicListener {
         } else {
             Toast.makeText(this, "Play list is empty", Toast.LENGTH_LONG).show()
         }
-        Log.d(TAG,"main onResume")
     }
 
     override fun onStart() {
         super.onStart()
         mainActivityViewModel.getMusicData(this)
-        Log.d(TAG,"main onStart")
+        Log.d(TAG, "onStart")
 
     }
 
@@ -85,7 +83,7 @@ class MainActivity : AppCompatActivity(), MusicListener {
     private fun initViewModel() {
         mainActivityViewModel = ViewModelProvider.NewInstanceFactory().create(MainActivityViewModel::class.java)
         mainActivityViewModel.musicLiveData.observe(this, Observer<List<MusicModel>> { musicModel ->
-            titleAdapter.updateAdapter(musicModel)
+            titleAdapter.setLiveData(musicModel)
         })
     }
 
@@ -114,6 +112,12 @@ class MainActivity : AppCompatActivity(), MusicListener {
     }
     override fun playThisSong(id: Int) {
         player?.playChosenSong(id)
+        titleAdapter.upDateAdapter(id)
+        this.onStart()
+    }
+
+    override fun onSongChange(id: Int) {
+        titleAdapter.upDateAdapter(id)
         this.onStart()
     }
 }
