@@ -1,6 +1,6 @@
 package by.itacademy.homework10.presentation
 
 interface MusicListener {
-    fun playThisSong(id:Int)
-    fun onSongChange(id:Int)
+    fun playThisSong(title:String)
+    fun onSongChange(title:String)
 }

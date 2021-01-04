@@ -67,8 +67,6 @@ class MainActivity : AppCompatActivity(), MusicListener {
     override fun onStart() {
         super.onStart()
         mainActivityViewModel.getMusicData(this)
-        Log.d(TAG, "onStart")
-
     }
 
     private fun getPermissions() {
@@ -110,14 +108,14 @@ class MainActivity : AppCompatActivity(), MusicListener {
             }
         }
     }
-    override fun playThisSong(id: Int) {
-        player?.playChosenSong(id)
-        titleAdapter.upDateAdapter(id)
+    override fun playThisSong(title:String) {
+        player?.playChosenSong(title)
+        titleAdapter.upDateAdapter(title)
         this.onStart()
     }
 
-    override fun onSongChange(id: Int) {
-        titleAdapter.upDateAdapter(id)
+    override fun onSongChange(title:String) {
+        titleAdapter.upDateAdapter(title)
         this.onStart()
     }
 }

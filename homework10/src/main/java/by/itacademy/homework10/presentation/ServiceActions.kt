@@ -4,5 +4,5 @@ interface ServiceActions {
     fun startMusic()
     fun stopMusic()
     fun pauseMusic()
-    fun playChosenSong(id: Int)
+    fun playChosenSong(title: String)
 }

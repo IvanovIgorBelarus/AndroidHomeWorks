@@ -13,15 +13,15 @@ class MusicTitleAdapter(
         private val musicListener: MusicListener
 ) : RecyclerView.Adapter<MusicTitleAdapter.MusicViewHolder>() {
     private val titleList: MutableList<MusicModel> = mutableListOf()
-    private var selectedItemId = -1
+    private var selectedItemTitle = ""
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             MusicViewHolder(RecyclerViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
         with(holder) {
-            bind(titleList[position], position)
-            itemView.setOnClickListener { musicListener.playThisSong(position) }
+            bind(titleList[position])
+            itemView.setOnClickListener { musicListener.playThisSong(titleList[position].musicTitle) }
         }
     }
 
@@ -33,19 +33,18 @@ class MusicTitleAdapter(
         notifyDataSetChanged()
     }
 
-    fun upDateAdapter(position: Int) {
-        selectedItemId = position
-        Log.d(TAG, "upDateAdapter $selectedItemId")
+    fun upDateAdapter(title: String) {
+        selectedItemTitle = title
+        Log.d(TAG, "upDateAdapter $selectedItemTitle")
         notifyDataSetChanged()
     }
 
     override fun getItemCount() = titleList.size
 
     inner class MusicViewHolder(private val binding: RecyclerViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(musicModel: MusicModel, id: Int) {
+        fun bind(musicModel: MusicModel) {
             binding.titleTextView.text = musicModel.musicTitle
-            if (id == selectedItemId) {
-                Log.d(TAG, "setImage $selectedItemId")
+            if (musicModel.musicTitle == selectedItemTitle) {
                 binding.imageView.setImageResource(R.drawable.ic_baseline_play_circle_outline_24)
             }
         }

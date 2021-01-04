@@ -11,6 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import by.itacademy.homework10.R
 import by.itacademy.homework10.TAG
 import by.itacademy.homework10.data.MyContentResolver
+import by.itacademy.homework10.model.ResolverModel
 import by.itacademy.homework10.model.UriModelMapper
 
 private const val NOTIFY_ID = 101
@@ -18,7 +19,7 @@ private const val CHANNEL_ID = "My channel"
 
 class PlayerService : Service(), ServiceActions {
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var playList: Map<Long, String>
+    private lateinit var playList: List<ResolverModel>
     private lateinit var musicListener: MusicListener
     private val uriMapper = UriModelMapper()
     private var i = 0
@@ -27,7 +28,7 @@ class PlayerService : Service(), ServiceActions {
         super.onStartCommand(intent, flags, startId)
         playList = MyContentResolver.getAllMusic(applicationContext)
         createPlayer()
-        createNotification(playList.values.first())
+        createNotification(playList[0].title)
         return START_NOT_STICKY
     }
 
@@ -41,7 +42,7 @@ class PlayerService : Service(), ServiceActions {
     }
 
     override fun startMusic() {
-        musicListener.onSongChange(i)
+        musicListener.onSongChange(uriMapper.invoke(playList[0]).title)
         mediaPlayer.start()
     }
 
@@ -53,33 +54,38 @@ class PlayerService : Service(), ServiceActions {
         mediaPlayer.pause()
     }
 
-    override fun playChosenSong(id: Int) {
-        i = id
-        musicListener.onSongChange(i)
-        val uri = uriMapper.invoke(playList)[i].uri
-        createNotification(uriMapper.invoke(playList)[i].title)
-        with(mediaPlayer) {
-            reset()
-            setDataSource(this@PlayerService.applicationContext, uri)
-            prepare()
-            start()
+    override fun playChosenSong(title: String) {
+        musicListener.onSongChange(title)
+        for (n in i..playList.size) {
+            if (playList[n].title == title) {
+                val uri = uriMapper.invoke(playList[n]).uri
+                i=n
+                createNotification(title)
+                with(mediaPlayer) {
+                    reset()
+                    setDataSource(this@PlayerService.applicationContext, uri)
+                    prepare()
+                    start()
+                }
+                break
+            }
         }
     }
 
     private fun createPlayer() {
         if (playList.isNotEmpty()) {
-            val uri = uriMapper.invoke(playList)[i].uri
+            val uri = uriMapper.invoke(playList[i]).uri
             mediaPlayer = MediaPlayer.create(applicationContext, uri)
             mediaPlayer.setOnCompletionListener { mp ->
-                createNotification(uriMapper.invoke(playList)[i].title)
-                mediaPlayer.reset()
+                               mediaPlayer.reset()
                 if (i < playList.size - 1) {
                     i++
                     Log.d(TAG, "i=$i")
-                    playChosenSong(i)
+                    createNotification(playList[i].title)
+                    playChosenSong(playList[i].title)
                 } else {
                     createNotification("playlist ended")
-                    i = -1
+                    i = 0
                 }
             }
         }
@@ -94,4 +100,5 @@ class PlayerService : Service(), ServiceActions {
         val notificationManager = NotificationManagerCompat.from(applicationContext)
         notificationManager.notify(NOTIFY_ID, notification)
     }
+
 }
