@@ -56,7 +56,7 @@ class PlayerService : Service(), ServiceActions {
 
     override fun playChosenSong(title: String) {
         musicListener.onSongChange(title)
-        for (n in i..playList.size) {
+        for (n in i until playList.size) {
             if (playList[n].title == title) {
                 val uri = uriMapper.invoke(playList[n]).uri
                 i=n

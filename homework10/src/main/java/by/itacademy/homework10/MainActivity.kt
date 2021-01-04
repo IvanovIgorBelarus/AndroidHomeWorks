@@ -111,7 +111,6 @@ class MainActivity : AppCompatActivity(), MusicListener {
     override fun playThisSong(title:String) {
         player?.playChosenSong(title)
         titleAdapter.upDateAdapter(title)
-        this.onStart()
     }
 
     override fun onSongChange(title:String) {
