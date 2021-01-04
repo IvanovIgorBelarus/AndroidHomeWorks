@@ -7,6 +7,7 @@ import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -17,15 +18,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.itacademy.homework10.databinding.ActivityMainBinding
 import by.itacademy.homework10.model.MusicModel
 import by.itacademy.homework10.presentation.MainActivityViewModel
+import by.itacademy.homework10.presentation.MusicListener
 import by.itacademy.homework10.presentation.MusicTitleAdapter
 import by.itacademy.homework10.presentation.PlayerService
 import by.itacademy.homework10.presentation.ServiceActions
 
 const val TAG = "Guv"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MusicListener {
     private lateinit var binding: ActivityMainBinding
-    private val titleAdapter by lazy { MusicTitleAdapter() }
+    private val titleAdapter by lazy { MusicTitleAdapter(this) }
     private lateinit var mainActivityViewModel: MainActivityViewModel
     private var player: ServiceActions? = null
     private val serviceConnection = object : ServiceConnection {
@@ -45,18 +47,30 @@ class MainActivity : AppCompatActivity() {
         getPermissions()
         initViewModel()
         prepareRecycler()
-        initButtons()
         bindService(
                 Intent(this, PlayerService::class.java),
                 serviceConnection,
                 0
         )
-        startService(Intent(this@MainActivity, PlayerService::class.java))
+        Log.d(TAG,"main onCreate")
     }
 
     override fun onResume() {
         super.onResume()
+        if (titleAdapter.itemCount!=0) {
+            initButtons()
+            startService(Intent(this@MainActivity, PlayerService::class.java))
+        } else {
+            Toast.makeText(this, "Play list is empty", Toast.LENGTH_LONG).show()
+        }
+        Log.d(TAG,"main onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
         mainActivityViewModel.getMusicData(this)
+        Log.d(TAG,"main onStart")
+
     }
 
     private fun getPermissions() {
@@ -97,5 +111,9 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Pause", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+    override fun playThisSong(id: Int) {
+        player?.playChosenSong(id)
+        this.onStart()
     }
 }

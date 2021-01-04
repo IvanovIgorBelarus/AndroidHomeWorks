@@ -7,15 +7,18 @@ import by.itacademy.homework10.databinding.RecyclerViewBinding
 import by.itacademy.homework10.model.MusicModel
 
 class MusicTitleAdapter(
-        private val titleList: MutableList<MusicModel> = mutableListOf()
+        private val musicListener: MusicListener
 ) : RecyclerView.Adapter<MusicTitleAdapter.MusicViewHolder>() {
-
+    private val titleList: MutableList<MusicModel> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             MusicViewHolder(RecyclerViewBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
 
     override fun onBindViewHolder(holder: MusicViewHolder, position: Int) {
-        holder.bind(titleList[position])
+        with(holder) {
+            bind(titleList[position])
+            itemView.setOnClickListener { musicListener.playThisSong(position)}
+        }
     }
 
     fun updateAdapter(list: List<MusicModel>) {
