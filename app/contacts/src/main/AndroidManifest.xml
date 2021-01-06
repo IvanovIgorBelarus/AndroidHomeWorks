@@ -20,6 +20,8 @@
         </activity>
         <provider
             android:authorities="by.itacademy.contacts"
-            android:name=".data.MyContentProvider"/>
+            android:name=".data.MyContentProvider"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 </manifest>

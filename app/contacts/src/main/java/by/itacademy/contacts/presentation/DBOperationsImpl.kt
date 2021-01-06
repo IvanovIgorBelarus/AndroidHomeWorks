@@ -2,7 +2,6 @@ package by.itacademy.contacts.presentation
 
 import android.content.ContentValues
 import android.content.Context
-import android.util.Log
 import by.itacademy.contacts.App
 import by.itacademy.contacts.data.Contact
 import by.itacademy.contacts.data.MyContentProvider
@@ -24,13 +23,13 @@ class DBOperationsImpl : DBOperations {
             put("isPhone", contact.isPhone)
             put("data", contact.data)
         }
-        val selection = getUsersFromDB(context)[position].name
-        context.contentResolver.update(MyContentProvider.CONTENT_URI, contentValue, TABLE_NAME, arrayOf("$selection =name"))
+        val selection = getUsersFromDB(context)[position].id
+        context.contentResolver.update(MyContentProvider.CONTENT_URI, contentValue, "id = $selection", null)
     }
 
     override fun removeContact(context: Context, position: Int) {
-        val selection = getUsersFromDB(context)[position].name
-        Log.d("qwe", "${context.contentResolver.delete(MyContentProvider.CONTENT_URI, TABLE_NAME, arrayOf("$selection =name"))}")
+        val selection = getUsersFromDB(context)[position].id
+        context.contentResolver.delete(MyContentProvider.CONTENT_URI,"id = $selection", null)
     }
 
     override fun getUsersFromDB(context: Context): List<Contact> {
