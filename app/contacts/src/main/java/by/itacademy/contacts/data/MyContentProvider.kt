@@ -1,24 +1,29 @@
 package by.itacademy.contacts.data
 
 import android.content.ContentProvider
-import android.content.ContentUris
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import by.itacademy.contacts.App
 
 class MyContentProvider : ContentProvider() {
+    private lateinit var db: SQLiteDatabase
     override fun onCreate(): Boolean {
+        db = (context as App)
+                .dbHelper
+                .writableDatabase
         return true
     }
 
     override fun query(uri: Uri, projection: Array<out String>?, selection: String?, selectionArgs: Array<out String>?, sortOrder: String?): Cursor? {
         return when (uriMatcher.match(uri)) {
-            DATA -> (context as App)
-                    .dbHelper
-                    .writableDatabase
-                    .query(TABLE_NAME, null, selection, selectionArgs, null, null, sortOrder)
+            DATA -> {
+                val cursor = db.query(TABLE_NAME, null, selection, selectionArgs, null, null, sortOrder)
+                cursor.setNotificationUri(context?.contentResolver, uri)
+                cursor
+            }
             else -> null
         }
     }
@@ -33,11 +38,9 @@ class MyContentProvider : ContentProvider() {
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
         return when (uriMatcher.match(uri)) {
             DATA -> {
-                val id = (context as App)
-                        .dbHelper
-                        .writableDatabase
-                        .insert(TABLE_NAME, null, values)
-                ContentUris.withAppendedId(uri, id)
+                val id = db.insert(TABLE_NAME, null, values)
+                context?.contentResolver?.notifyChange(uri, null)
+                Uri.parse("$TABLE_NAME/$id")
             }
             else -> null
         }
@@ -46,10 +49,9 @@ class MyContentProvider : ContentProvider() {
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
         return when (uriMatcher.match(uri)) {
             DATA -> {
-                (context as App)
-                        .dbHelper
-                        .writableDatabase
-                        .delete(TABLE_NAME, selection, selectionArgs)
+                val rowDeleted = db.delete(TABLE_NAME, null, null)
+                context?.contentResolver?.notifyChange(uri, null)
+                rowDeleted
             }
             else -> -1
         }
@@ -58,22 +60,20 @@ class MyContentProvider : ContentProvider() {
     override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
         return when (uriMatcher.match(uri)) {
             DATA -> {
-                (context as App)
-                        .dbHelper
-                        .writableDatabase
-                        .update(TABLE_NAME, values, selection, selectionArgs)
+                val rowUpdated = db.update(TABLE_NAME, values, null, null)
+                context?.contentResolver?.notifyChange(uri, null)
+                rowUpdated
             }
             else -> -1
         }
     }
 
     companion object {
-        private const val CONTENT_AUTHORITY = "by.itacademy.contacts"
-        private val BASE_CONTENT_URI = Uri.parse("content://$CONTENT_AUTHORITY")
-        val CONTENT_URI: Uri = Uri.withAppendedPath(BASE_CONTENT_URI, TABLE_NAME)
+        private const val AUTHORITY = "by.itacademy.contacts"
+        val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
         private const val DATA = 1
         private val uriMatcher = UriMatcher(UriMatcher.NO_MATCH).apply {
-            addURI(CONTENT_AUTHORITY, "data/data/#", DATA)
+            addURI(AUTHORITY, TABLE_NAME, DATA)
         }
     }
 }

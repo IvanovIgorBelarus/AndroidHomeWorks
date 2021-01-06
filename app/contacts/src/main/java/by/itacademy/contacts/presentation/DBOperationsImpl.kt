@@ -15,12 +15,7 @@ class DBOperationsImpl : DBOperations {
             put("isPhone", contact.isPhone)
             put("data", contact.data)
         }
-        (context as App)
-                .dbHelper
-                .writableDatabase
-                .insert("contacts", null, contentValues)
         context.contentResolver.insert(MyContentProvider.CONTENT_URI, contentValues)
-        Log.d("qwe","${context.contentResolver.insert(MyContentProvider.CONTENT_URI, contentValues)}")
     }
 
     override fun changeContact(context: Context, contact: Contact, position: Int) {
@@ -29,23 +24,13 @@ class DBOperationsImpl : DBOperations {
             put("isPhone", contact.isPhone)
             put("data", contact.data)
         }
-        val selection = getUsersFromDB(context)[position].id
-        (context as App)
-                .dbHelper
-                .writableDatabase
-                .update("contacts", contentValue, "$selection =id", null)
-        context.contentResolver.update(MyContentProvider.CONTENT_URI, contentValue, TABLE_NAME, arrayOf("$selection =id"))
-        Log.d("qwe","${ context.contentResolver.update(MyContentProvider.CONTENT_URI, contentValue, TABLE_NAME, arrayOf("$selection =id"))}")
+        val selection = getUsersFromDB(context)[position].name
+        context.contentResolver.update(MyContentProvider.CONTENT_URI, contentValue, TABLE_NAME, arrayOf("$selection =name"))
     }
 
     override fun removeContact(context: Context, position: Int) {
-        val selection = getUsersFromDB(context)[position].id
-        (context as App)
-                .dbHelper
-                .writableDatabase
-                .delete("contacts", "$selection =id", null)
-        context.contentResolver.delete(MyContentProvider.CONTENT_URI, TABLE_NAME, arrayOf("$selection =id"))
-        Log.d("qwe","${ context.contentResolver.delete(MyContentProvider.CONTENT_URI, TABLE_NAME, arrayOf("$selection =id"))}")
+        val selection = getUsersFromDB(context)[position].name
+        Log.d("qwe", "${context.contentResolver.delete(MyContentProvider.CONTENT_URI, TABLE_NAME, arrayOf("$selection =name"))}")
     }
 
     override fun getUsersFromDB(context: Context): List<Contact> {
