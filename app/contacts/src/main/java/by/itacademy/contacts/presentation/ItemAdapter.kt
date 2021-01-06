@@ -1,8 +1,10 @@
-package by.itacademy.contacts
+package by.itacademy.contacts.presentation
 
 import android.view.LayoutInflater.from
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import by.itacademy.contacts.data.Contact
+import by.itacademy.contacts.R
 import by.itacademy.contacts.databinding.ItemRecyclerviewBinding
 
 

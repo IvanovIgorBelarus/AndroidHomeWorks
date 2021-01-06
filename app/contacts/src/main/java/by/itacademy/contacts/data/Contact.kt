@@ -1,4 +1,4 @@
-package by.itacademy.contacts
+package by.itacademy.contacts.data
 class Contact {
     var name: String = ""
     var data: String = ""

@@ -1,10 +1,14 @@
-package by.itacademy.contacts
+package by.itacademy.contacts.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.itacademy.contacts.presentation.DBOperations
+import by.itacademy.contacts.presentation.DBOperationsImpl
+import by.itacademy.contacts.presentation.ItemAdapter
+import by.itacademy.contacts.presentation.ListItemActionListener
 import by.itacademy.contacts.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), ListItemActionListener {

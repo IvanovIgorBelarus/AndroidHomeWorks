@@ -1,7 +1,12 @@
-package by.itacademy.contacts
+package by.itacademy.contacts.presentation
 
 import android.content.ContentValues
 import android.content.Context
+import android.util.Log
+import by.itacademy.contacts.App
+import by.itacademy.contacts.data.Contact
+import by.itacademy.contacts.data.MyContentProvider
+import by.itacademy.contacts.data.TABLE_NAME
 
 class DBOperationsImpl : DBOperations {
     override fun saveContactInDB(context: Context, contact: Contact) {
@@ -14,24 +19,35 @@ class DBOperationsImpl : DBOperations {
                 .dbHelper
                 .writableDatabase
                 .insert("contacts", null, contentValues)
+        context.contentResolver.insert(MyContentProvider.CONTENT_URI, contentValues)
+        Log.d("qwe","${context.contentResolver.insert(MyContentProvider.CONTENT_URI, contentValues)}")
     }
-    override fun changeContact(context: Context,contact: Contact, position: Int) {
+
+    override fun changeContact(context: Context, contact: Contact, position: Int) {
         val contentValue = ContentValues().apply {
             put("name", contact.name)
             put("isPhone", contact.isPhone)
             put("data", contact.data)
         }
+        val selection = getUsersFromDB(context)[position].id
         (context as App)
                 .dbHelper
                 .writableDatabase
-                .update("contacts", contentValue, "" + getUsersFromDB(context)[position].id + " =id", null)
+                .update("contacts", contentValue, "$selection =id", null)
+        context.contentResolver.update(MyContentProvider.CONTENT_URI, contentValue, TABLE_NAME, arrayOf("$selection =id"))
+        Log.d("qwe","${ context.contentResolver.update(MyContentProvider.CONTENT_URI, contentValue, TABLE_NAME, arrayOf("$selection =id"))}")
     }
+
     override fun removeContact(context: Context, position: Int) {
+        val selection = getUsersFromDB(context)[position].id
         (context as App)
                 .dbHelper
                 .writableDatabase
-                .delete("contacts", "" + getUsersFromDB(context)[position].id + " =id", null)
+                .delete("contacts", "$selection =id", null)
+        context.contentResolver.delete(MyContentProvider.CONTENT_URI, TABLE_NAME, arrayOf("$selection =id"))
+        Log.d("qwe","${ context.contentResolver.delete(MyContentProvider.CONTENT_URI, TABLE_NAME, arrayOf("$selection =id"))}")
     }
+
     override fun getUsersFromDB(context: Context): List<Contact> {
         val cursor = (context as App)
                 .dbHelper

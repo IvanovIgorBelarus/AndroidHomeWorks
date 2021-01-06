@@ -1,7 +1,10 @@
-package by.itacademy.contacts
+package by.itacademy.contacts.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import by.itacademy.contacts.data.Contact
+import by.itacademy.contacts.presentation.DBOperations
+import by.itacademy.contacts.presentation.DBOperationsImpl
 import by.itacademy.contacts.databinding.ActivityChangeItemBinding
 
 

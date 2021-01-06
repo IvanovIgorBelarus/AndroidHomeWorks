@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/MyLinear"
-    tools:context=".CreateItemActivity">
+    tools:context=".view.CreateItemActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarCreate"
